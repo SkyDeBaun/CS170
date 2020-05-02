@@ -12,7 +12,7 @@ using std::cin;
 class State
 {
 protected:
-	vector<int> startState;
+	vector<int> puzzleState;
 	vector<int> defaultState = { 1, 0, 3, 4, 2, 6, 7, 5, 8 }; //default puzzle grid
 	size_t gridSize = 3; //size of puzzle grid-> 3x3, 4x4, etc
 
@@ -26,7 +26,7 @@ public:
 
 		for (size_t i = 0; i < loopFor; ++i)
 		{
-			startState.push_back(defaultState[i]);//copy default puzzle state
+			puzzleState.push_back(defaultState[i]);//copy default puzzle state
 		}
 
 	}//end default constructor---//
@@ -39,7 +39,7 @@ public:
 
 		for (size_t i = 0; i < loopFor; ++i)
 		{
-			startState.push_back(vec[i]);//copy user defined puzzle
+			puzzleState.push_back(vec[i]);//copy user defined puzzle
 		}
 	}//end stateCopy constructor---//
 
@@ -47,23 +47,19 @@ public:
 	State(const State &copy)
 	{
 		gridSize = copy.gridSize;
-		startState = copy.startState;
+		puzzleState = copy.puzzleState;
 
 	}//end copy constructor---//
 
 
-	size_t getSize()
-	{
-		return this->gridSize;
-	}
-
+	//print state of puzzle-------------------------------
 	void printState()
 	{
 		size_t position = 0;
 
-		for (size_t i = 0; i < startState.size(); ++i)
+		for (size_t i = 0; i < puzzleState.size(); ++i)
 		{			
-			cout << startState[i] << " ";
+			cout << puzzleState[i] << " ";
 			if ((i+1) % gridSize == 0)
 			{
 				cout << endl;
@@ -71,10 +67,10 @@ public:
 		}
 	}//end printState---//
 
-
+	//create new puzzle state (also used to resize puzzle from menu)
 	void createCustomState(size_t &_gridSize)
 	{
-		startState.clear(); //clear the puzzle state
+		puzzleState.clear(); //clear the puzzle state
 		gridSize = _gridSize;//update object gridsize to maintain print rows via modulo
 
 		size_t newSize = _gridSize * _gridSize;
@@ -84,15 +80,34 @@ public:
 		for (size_t i = 0; i < newSize; ++i)
 		{
 			cin >> pos;
-			startState.push_back(pos);
+			puzzleState.push_back(pos);
 		}
 
 	}//end createCustomState---//
 
-	void resizeState(size_t &_gridSize)
+	//find empty tile----------------------------------
+	size_t findEmptyTile() const
 	{
-		createCustomState(_gridSize);
-	}
+		for (size_t i = 0; i < gridSize; ++i)
+		{
+			if (puzzleState[i] == 0)
+			{
+				return i;
+			}
+		}
 
+		return puzzleState.size();//returns out of bounds value!
+
+	}//end findEmptyTile---//
+
+	//swap tiles-----------------------------------------
+	void swapTiles(size_t empty, size_t tile)
+	{
+		size_t tmp = puzzleState[tile];
+		puzzleState[tile] = puzzleState[empty];
+		puzzleState[empty] = tmp;
+
+	}//end swapTiles---//
+	
 };
 

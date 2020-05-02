@@ -1,6 +1,6 @@
 //Sky DeBaun -> CS170 -> Intro to Artificial Intelligence -> Project 01
 //Professor Niloofar Montazeri -> Spring 2020
-//A* -> eight-puzzle
+//A* -> eight-puzzle (by default, use menu to create other sized puzzles.. use caution!)
 
 
 //includes----------------------------------------------
@@ -26,8 +26,8 @@ int main()
 	if (selectPuzzle)
 	{
 		cout << "Enter  puzzle size (i.e. 3 for 3x3 = 8 puzzle) \n";
-		cin >> selectPuzzle; //re-using ser input variable here
-		myPuzzle.resizeState(selectPuzzle);
+		cin >> selectPuzzle; //re-using user input variable here
+		myPuzzle.createCustomState(selectPuzzle);
 
 		cout << "\n" << "Your puzzle: \n";
 	}	
