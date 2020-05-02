@@ -108,6 +108,17 @@ public:
 		puzzleState[empty] = tmp;
 
 	}//end swapTiles---//
+
+
+	int returnState(size_t i) const
+	{
+		return puzzleState[i];
+	}
+
+	int returnSize() const
+	{
+		return puzzleState.size();
+	}
 	
 };
 
