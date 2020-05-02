@@ -10,8 +10,7 @@
 
 int main()
 {
-
-
+	int hello = 0; //testing git
 
 	return 0;
 }
