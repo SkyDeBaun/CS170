@@ -2,6 +2,7 @@
 class Problem
 {
 protected:
+	int hello;
 
 private:
 
