@@ -3,18 +3,48 @@
 //A* -> eight-puzzle
 
 
-
+//includes----------------------------------------------
 #include <iostream>
-
+#include "state.h"
 #include "problem.h"
 
+using std::cin;
 
+
+//MAIN---------------------------------------------------
+//-------------------------------------------------------
 int main()
 {
-	int hello = -1; //testing git
+	State myPuzzle; //initialize the default puzzle
 
+	//user prompt for default or custom puzzle----------
+	size_t selectPuzzle;
+
+	cout << "Enter 0 for default 8-puzzle, or 1 to enter custom puzzle:" << "\n";
+	cin >> selectPuzzle;
+
+	//puzzle initialization-----------------------------
+	if (selectPuzzle)
+	{
+		//enter custom puzzle here:
+		myPuzzle.createCustomState();
+		cout << "\n" << "Your puzzle: \n";
+
+	}
+	else
+	{
+		cout << "\n" << "The default puzzle: \n";
+
+	}//end if_else--//
+
+	//print current puzzle-----------------------------
+	myPuzzle.printState();
+
+
+	
 	return 0;
-}
+
+}//END MAIN----------------------------------------------///
 
 
 
