@@ -14,7 +14,7 @@ public:
 	Node(const State &puzzleState, Node *parent, int depth) 
 		: branchDepth(depth), puzzleState(puzzleState)
 	{
-		parent = parent;//feaky
+		parent = parent;//freaky
 	}
 		
 	~Node()
