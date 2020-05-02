@@ -30,3 +30,15 @@
 *.exe
 *.out
 *.app
+*.tlog
+*.user
+*.log
+*.pdb
+*.idb
+*.filters
+*.vcxproj
+*.sln
+*.ipch
+*.db
+Assignment01/.vs/CS170_assignment01/v15/.suo
+*.ilk
