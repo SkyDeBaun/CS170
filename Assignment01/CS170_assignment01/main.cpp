@@ -8,7 +8,6 @@
 #include "state.h"
 #include "problem.h"
 
-using std::cin;
 
 
 //MAIN---------------------------------------------------
@@ -20,25 +19,28 @@ int main()
 	//user prompt for default or custom puzzle----------
 	size_t selectPuzzle;
 
-	cout << "Enter 0 for default 8-puzzle, or 1 to enter custom puzzle:" << "\n";
+	cout << "Enter 0 for default 8-puzzle, or 1 to enter custom 8-puzzle:" << "\n";
 	cin >> selectPuzzle;
 
 	//puzzle initialization-----------------------------
 	if (selectPuzzle)
 	{
-		//enter custom puzzle here:
-		myPuzzle.createCustomState();
-		cout << "\n" << "Your puzzle: \n";
+		cout << "Enter  puzzle size (i.e. 3 for 3x3 = 8 puzzle) \n";
+		cin >> selectPuzzle; //re-using ser input variable here
+		myPuzzle.resizeState(selectPuzzle);
 
-	}
-	else
+		cout << "\n" << "Your puzzle: \n";
+	}	
+	else //0
 	{
 		cout << "\n" << "The default puzzle: \n";
-
 	}//end if_else--//
 
 	//print current puzzle-----------------------------
 	myPuzzle.printState();
+
+
+
 
 
 	
