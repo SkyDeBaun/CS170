@@ -55,7 +55,22 @@ public:
 		int cost2 =  getManhattanDistance(state2) + getHeuristic(state2);
 
 		return cost1 < cost2;
-	}
+
+	}//end bool operator---//
+
+
+	bool inState(const State &state, const vector<Node*> nodes)
+	{
+		for (size_t i = 0; i < nodes.size(); ++i)
+		{
+			if (state == nodes[i]->returnState())
+			{
+				return true;
+			}
+		}
+		return false;
+
+	}//end inState---//
 
 	
 	Node* traverseFrontier()
@@ -66,7 +81,7 @@ public:
 		}
 
 		//create pointer to current node-----------------
-		Node* currentNode;
+		Node* currentNode = nullptr;
 
 
 		//algorithm selection----------------------------
@@ -93,20 +108,44 @@ public:
 			}//end case AStar---//
 
 			//return pointer to current node--------------
-			return currentNode;
+			
 
 		}//end switch---//
+
+		return currentNode;
 
 	}//end traverseFrontier---//
 
 
 
 	//expand nodes------------------------------------------------
-	void expandNodes(const Node *_node, const Operators &_operators)
+	void expandNodes(const Node *currentNode)
 	{
+		if (currentNode->returnState() == this->goal)
+		{
+			problemSolved = true;
+		}
+		else
+		{
+			int emptyTile = currentNode->returnState().findEmptyTile(); //get position of blanc (ie empty) tile
+			const vector<int> &ops = operators.getPossibleMoves(emptyTile); //return vector of possible moves
 
-	}
+			//iterate through ops for retuned moves------------------------
+			for (int move : ops)
+			{
+				State currentState = currentNode->returnState();
+				currentState.swapTiles(emptyTile, move);
 
+				if (!inState(currentState, explored))
+				{
+					//const Node *node(new Node(currentState,));
+				}
+
+			}
+
+		}//end if else---//
+
+	}//endexpandNodes---//
 
 	//solve problem for solution----------------------------------
 	void solve()
@@ -114,7 +153,7 @@ public:
 		while (!problemSolved)
 		{
 			Node* currentNode = traverseFrontier();
-			expandNodes(currentNode, operators);
+			expandNodes(currentNode);
 
 		}
 	}//end solve---//

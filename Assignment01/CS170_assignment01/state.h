@@ -119,6 +119,34 @@ public:
 	{
 		return puzzleState.size();
 	}
+
+	//operators---------------------------------------------
+
+	//assignment operator------------------------------------
+	State& operator = (const State& rhs)
+	{
+		if (this != &rhs)
+		{
+			gridSize = rhs.gridSize;
+			puzzleState = rhs.puzzleState;
+		}
+		
+		return *this;
+	}//end assignment operator---//
 	
+	//equality operator-------------------------------------
+	friend bool operator == (const State& lhs, const State& rhs)
+	{
+		return (lhs.puzzleState == rhs.puzzleState);
+
+	}//end equality operator---//
+
+	//inequality operator-----------------------------------
+	friend bool operator != (const State& lhs, const State& rhs)
+	{
+		return (lhs.puzzleState != rhs.puzzleState);
+
+	}//end inequality operator---//
+
 };
 
