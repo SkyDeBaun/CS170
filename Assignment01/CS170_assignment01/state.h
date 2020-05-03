@@ -15,7 +15,7 @@ protected:
 	vector<int> puzzleState;
 	//vector<int> defaultState = { 1, 0, 3, 4, 2, 6, 7, 5, 8 }; //default puzzle grid
 	size_t gridSize = 3; //size of puzzle grid-> 3x3, 4x4, etc
-
+	size_t depth = 0;//roots default -> just easier here than Node -> see Node constructor
 
 
 public:
@@ -114,10 +114,13 @@ public:
 	{
 		return puzzleState[i];
 	}
-
 	int returnSize() const
 	{
-		return puzzleState.size();
+		return puzzleState.size();//?
+	}
+	int returnDepth() const
+	{
+		return depth;
 	}
 
 	//operators---------------------------------------------

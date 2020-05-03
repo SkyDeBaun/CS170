@@ -14,8 +14,8 @@ class Problem
 {
 protected:
 	enum algorithmType { AStar } algorithm;
-	vector<Node*> frontier;
-	vector<Node*> explored;
+	vector<const Node*> frontier;
+	vector<const Node*> explored;
 	State& goal;
 	bool problemSolved;
 	algorithmType algoType;
@@ -59,7 +59,7 @@ public:
 	}//end bool operator---//
 
 
-	bool inState(const State &state, const vector<Node*> nodes)
+	bool inState(const State &state, const vector<const Node*> nodes)
 	{
 		for (size_t i = 0; i < nodes.size(); ++i)
 		{
@@ -72,25 +72,24 @@ public:
 
 	}//end inState---//
 
-	
-	Node* traverseFrontier()
+	//traverse the frontier and place Nodes into explored-----------------
+	const Node* traverseFrontier()
 	{
+		//create pointer to current node-----------------
+		const Node* currentNode = nullptr; 
+
 		if (frontier.empty())
 		{
-			return nullptr;
+			return currentNode;
 		}
-
-		//create pointer to current node-----------------
-		Node* currentNode = nullptr;
-
-
+				
 		//algorithm selection----------------------------
 		switch (algorithm)
 		{
 			case AStar:
 			{
 				//create iterator for frontier-----------
-				vector<Node*>::iterator itr(min_element(frontier.begin(), frontier.end()));
+				vector<const Node*>::iterator itr(min_element(frontier.begin(), frontier.end()));
 
 				//check frontier-------------------------
 				if (itr == frontier.end())
@@ -101,7 +100,7 @@ public:
 				//move Node from frontier to visited------
 				currentNode = *itr;
 				explored.push_back(currentNode);
-				frontier.erase(itr);
+				frontier.erase(itr); //
 
 				break;
 
@@ -118,9 +117,15 @@ public:
 
 
 
-	//expand nodes------------------------------------------------
+	//expand nodes of tree-----------------------------------------------
 	void expandNodes(const Node *currentNode)
 	{
+		if (currentNode == nullptr)
+		{
+			//oops
+			return;
+		}
+
 		if (currentNode->returnState() == this->goal)
 		{
 			problemSolved = true;
@@ -128,32 +133,41 @@ public:
 		else
 		{
 			int emptyTile = currentNode->returnState().findEmptyTile(); //get position of blanc (ie empty) tile
+			int depth = currentNode->returnState().returnDepth();
 			const vector<int> &ops = operators.getPossibleMoves(emptyTile); //return vector of possible moves
 
 			//iterate through ops for retuned moves------------------------
 			for (int move : ops)
 			{
 				State currentState = currentNode->returnState();
-				currentState.swapTiles(emptyTile, move);
+				currentState.swapTiles(emptyTile, move);//swap positions with an operator (move)
 
-				if (!inState(currentState, explored))
+				//construct the tree of new nodes--------------------------				
+				if (!inState(currentState, explored)) //construct tree on exit (placed into explored)
 				{
-					//const Node *node(new Node(currentState,));
-				}
+					const Node* nod = nullptr;
 
-			}
+					++depth;//depth of next generation of nodes
+					const Node *node(new Node(currentState, currentNode, depth));
+					//Node* rootNode(new Node(currentState, currentNode, depth));
+					frontier.push_back(node);
+
+				}//end if---//
+
+			}//end for---//
 
 		}//end if else---//
 
 	}//endexpandNodes---//
 
+
 	//solve problem for solution----------------------------------
 	void solve()
 	{
-		while (!problemSolved)
+		while (!problemSolved) //compare against explored
 		{
-			Node* currentNode = traverseFrontier();
-			expandNodes(currentNode);
+			const Node* currentNode = traverseFrontier();//traverse and move current Node to explored
+			expandNodes(currentNode); //expand current Nodes children
 
 		}
 	}//end solve---//

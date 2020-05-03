@@ -18,10 +18,11 @@ int main()
 	vector<int> goal = { 1, 2, 3, 4, 5, 6, 7, 8, 0 }; //goal state for eight-puzzle
 	vector<int> defaultState = { 1, 0, 3, 4, 2, 6, 7, 5, 8 }; //default puzzle grid
 
+	//create the two puzzle states
 	State goalState(goal);
 	State myPuzzle(defaultState);
 
-	Operators operators;
+	Operators operators;//map of operators for eight-puzzle(future consideration-> automate on puzzle size)
 
 	//user prompt for default or custom puzzle----------
 	size_t selectPuzzle; //size_t -> no negatives

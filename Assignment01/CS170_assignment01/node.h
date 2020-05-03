@@ -6,13 +6,13 @@ class Node
 {
 protected:
 	State puzzleState;
-	int branchDepth;
-	Node* parent; 
+	int branchDepth;//using state to hold depth instead
+	const Node* parent; 
 
 public:
 	//constructor initializes with 
-	Node(const State &puzzleState, Node *parent, int depth) 
-		: branchDepth(depth), puzzleState(puzzleState)
+	Node(const State &puzzleState, const Node *parent, int depth=0) 
+		: parent(parent), branchDepth(depth), puzzleState(puzzleState)
 	{
 		parent = parent;//freaky
 	}
@@ -27,7 +27,7 @@ public:
 		parent = node;
 	}
 
-	Node* getParent()
+	const Node* getParent()
 	{
 		return parent;
 	}
