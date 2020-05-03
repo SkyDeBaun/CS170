@@ -13,27 +13,27 @@ class State
 {
 protected:
 	vector<int> puzzleState;
-	vector<int> defaultState = { 1, 0, 3, 4, 2, 6, 7, 5, 8 }; //default puzzle grid
+	//vector<int> defaultState = { 1, 0, 3, 4, 2, 6, 7, 5, 8 }; //default puzzle grid
 	size_t gridSize = 3; //size of puzzle grid-> 3x3, 4x4, etc
 
 
 
 public:
-	//default constructor----------------Default puzzle
+	//default constructor----------------empty puzzle
 	State()
 	{
-		size_t loopFor = gridSize * gridSize;
+		//size_t loopFor = gridSize * gridSize;
 
-		for (size_t i = 0; i < loopFor; ++i)
-		{
-			puzzleState.push_back(defaultState[i]);//copy default puzzle state
-		}
+		//for (size_t i = 0; i < loopFor; ++i)
+		//{
+		//	puzzleState.push_back(defaultState[i]);//copy default puzzle state
+		//}
 
 	}//end default constructor---//
 
 
 	//constructor-------------------------copy puzzle
-	State(size_t &_gridSize, vector<int> &vec):gridSize(_gridSize)
+	State(vector<int> &vec, const size_t &_gridSize = 3):gridSize(_gridSize)
 	{
 		size_t loopFor = gridSize * gridSize;
 

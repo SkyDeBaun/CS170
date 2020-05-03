@@ -14,10 +14,14 @@
 //-------------------------------------------------------
 int main()
 {
-	State myPuzzle; //initialize the default puzzle
+	vector<int> goal = { 1, 2, 3, 4, 5, 6, 7, 8, 0 }; //goal state for eight-puzzle
+	vector<int> defaultState = { 1, 0, 3, 4, 2, 6, 7, 5, 8 }; //default puzzle grid
+
+	State goalState(goal);
+	State myPuzzle(defaultState);
 
 	//user prompt for default or custom puzzle----------
-	size_t selectPuzzle;
+	size_t selectPuzzle; //size_t -> no negatives
 
 	cout << "Enter 0 for default 8-puzzle, or 1 to enter custom 8-puzzle:" << "\n";
 	cin >> selectPuzzle;
@@ -26,7 +30,7 @@ int main()
 	if (selectPuzzle)
 	{
 		cout << "Enter  puzzle size (i.e. 3 for 3x3 = 8 puzzle) \n";
-		cin >> selectPuzzle; //re-using user input variable here
+		cin >> selectPuzzle; //re-using user input variable here ->size ie 3 = 3x3 = 9(eight-puzzle)
 		myPuzzle.createCustomState(selectPuzzle);
 
 		cout << "\n" << "Your puzzle: \n";
