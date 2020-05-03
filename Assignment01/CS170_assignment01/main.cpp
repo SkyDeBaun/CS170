@@ -7,18 +7,21 @@
 #include <iostream>
 #include "state.h"
 #include "problem.h"
-
+#include "operators.h"
 
 
 //MAIN---------------------------------------------------
 //-------------------------------------------------------
 int main()
 {
+	//default setup for eight-puzzle--------------------
 	vector<int> goal = { 1, 2, 3, 4, 5, 6, 7, 8, 0 }; //goal state for eight-puzzle
 	vector<int> defaultState = { 1, 0, 3, 4, 2, 6, 7, 5, 8 }; //default puzzle grid
 
 	State goalState(goal);
 	State myPuzzle(defaultState);
+
+	Operators operators;
 
 	//user prompt for default or custom puzzle----------
 	size_t selectPuzzle; //size_t -> no negatives
@@ -44,8 +47,9 @@ int main()
 	myPuzzle.printState();
 
 
-
-
+	//solution discovery-------------------------------
+	Problem solution(myPuzzle, goalState, operators);//initialize problem solution
+	solution.solve();
 
 	
 	return 0;
