@@ -53,7 +53,7 @@ public:
 
 
 	//print state of puzzle-------------------------------
-	void printState()
+	void printState() const
 	{
 		size_t position = 0;
 

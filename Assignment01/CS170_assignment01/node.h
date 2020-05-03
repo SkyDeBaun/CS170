@@ -27,7 +27,7 @@ public:
 		parent = node;
 	}
 
-	const Node* getParent()
+	const Node* getParent() const
 	{
 		return parent;
 	}
@@ -39,12 +39,14 @@ public:
 
 	void print() const
 	{
-		int size = puzzleState.returnSize();
+		puzzleState.printState();
 
-		for (int i = 0; i < size; ++size)
-		{
-			cout << puzzleState.returnState(i) << " \n";
-		}
+		//int size = puzzleState.returnSize();
+
+		//for (size_t i = 0; i < size; ++size)
+		//{
+		//	cout << puzzleState.returnState(i) << " \n";
+		//}
 	}
 
 	const State& returnState()const

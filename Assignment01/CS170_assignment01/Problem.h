@@ -29,7 +29,10 @@ public:
 		frontier.push_back(rootNode); //add root to frontier
 		problemSolved = false;
 	}
-
+	~Problem()
+	{
+		
+	}
 
 	int getManhattanDistance(const State &state)
 	{
@@ -128,7 +131,8 @@ public:
 
 		if (currentNode->returnState() == this->goal)
 		{
-			problemSolved = true;
+			problemSolved = true; //well... goal state found
+			return; //return with goal in currentNode
 		}
 		else
 		{
@@ -148,8 +152,7 @@ public:
 					const Node* nod = nullptr;
 
 					++depth;//depth of next generation of nodes
-					const Node *node(new Node(currentState, currentNode, depth));
-					//Node* rootNode(new Node(currentState, currentNode, depth));
+					const Node *node(new Node(currentState, currentNode, depth)); //create new node
 					frontier.push_back(node);
 
 				}//end if---//
@@ -164,12 +167,41 @@ public:
 	//solve problem for solution----------------------------------
 	void solve()
 	{
+		const Node* currentNode = nullptr;
+		const Node* node = nullptr;
+		vector<const Node*> solution;
+
+
 		while (!problemSolved) //compare against explored
 		{
-			const Node* currentNode = traverseFrontier();//traverse and move current Node to explored
-			expandNodes(currentNode); //expand current Nodes children
-
+			currentNode = traverseFrontier();//traverse and move current Node to explored
+			expandNodes(currentNode); //expand current Node's children
 		}
+
+		
+
+		//not solved.. but goal state found--------------------
+		if (problemSolved)
+		{	
+			node = currentNode;
+
+			//add current and all parent Nodes to solution-----
+			do
+			{
+				solution.push_back(node);
+				node = currentNode->getParent();
+			} while (node != nullptr);
+
+		}//end if---//
+
+		//print solution----------------------------------------
+		cout << "\n" << "The Solution: \n";
+
+		for (int i = solution.size()-1; i >-1; --i)
+		{
+			solution[i]->print();
+		}
+
 	}//end solve---//
 
 };

@@ -47,7 +47,7 @@ public:
 			return itr->second;//return vector of possible moves
 		}
 		//none found
-		vector<int> empty;
+		const vector<int> empty;//weird
 		return empty;
 
 	}//end getPossibleMoves---//
