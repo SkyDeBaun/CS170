@@ -47,6 +47,9 @@ public:
 		}
 	}
 
-
+	const State& returnState()const
+	{
+		return puzzleState;
+	}
 };
 
