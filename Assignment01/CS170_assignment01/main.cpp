@@ -56,10 +56,10 @@ int main()
 	//print current puzzle-----------------------------
 	myPuzzle.printState();
 
-	cout << "MENU: \n";
-	cout << "0.) Uniform Cost Search \n";
-	cout << "1.) A* with Misplaced Tile heuristic \n";
-	cout << "3.) A* with Euclidian distance heuristic \n";
+	cout <<"\n"<< "MENU: \n";
+	cout << "1.) Uniform Cost Search \n";
+	cout << "2.) A* with Misplaced Tile heuristic \n";
+	cout << "3.) A* with Euclidian distance heuristic \n\n";
 
 	int userInput;
 	cin >> userInput;

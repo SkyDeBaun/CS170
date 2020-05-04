@@ -20,6 +20,7 @@ protected:
 	vector<const Node*> frontier;
 	priority_queue<const Node*, vector<const Node*>, AStar_Comparator> pq_frontier;
 	priority_queue<const Node*, vector<const Node*>, UniformCost> uniform_frontier;
+	priority_queue<const Node*, vector<const Node*>, EuclideanCost> euclidean_frontier;
 
 	vector<const Node*> explored;
 	//enum algorithmType { AStar, Uniform, Euclidean } algorithm;
@@ -38,16 +39,23 @@ public:
 		Node* rootNode(new Node(_start, nullptr, 0));
 		problemSolved = false;
 
-		//switch based on algorithm type-----------------------
+		//switch based on algorithm type-----------------------SWITCH
 		switch (algoChoice)
 		{
-			case 0:
+			case 2:
 			{
 				pq_frontier.push(rootNode);
+				break;
 			}
 			case 1:
 			{
 				uniform_frontier.push(rootNode); //add root to frontier
+				break;
+			}
+			case 3:
+			{
+				euclidean_frontier.push(rootNode);
+				break;
 			}
 
 		}//end switch---//
@@ -82,7 +90,7 @@ public:
 		//algorithm selection----------------------------
 		switch (algoChoice)
 		{
-			case 0:
+			case 2://A*
 			{				
 				if (!pq_frontier.empty())
 				{
@@ -105,6 +113,18 @@ public:
 						explored.push_back(currentNode);
 						uniform_frontier.pop();
 					}
+				break;
+			}
+			case 3:
+			{
+				;
+				if (!euclidean_frontier.empty())
+				{
+					//move Node from frontier to visited------
+					currentNode = euclidean_frontier.top();
+					explored.push_back(currentNode);
+					euclidean_frontier.pop();
+				}
 				break;
 			}
 
@@ -155,7 +175,7 @@ public:
 					//switch based on algorithm type-----------------------
 					switch (algoChoice)
 					{
-						case 0:
+						case 2:
 						{
 							pq_frontier.push(node);
 							break;
@@ -163,6 +183,11 @@ public:
 						case 1:
 						{
 							uniform_frontier.push(node);
+							break;
+						}
+						case 3:
+						{
+							euclidean_frontier.push(node);
 							break;
 						}
 
