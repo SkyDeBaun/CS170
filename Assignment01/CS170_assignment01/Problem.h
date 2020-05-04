@@ -27,7 +27,6 @@ protected:
 	algorithmType algoType;
 	Operators operators;
 
-
 public:
 	Problem(const State &_start,  State &_goal, const Operators &_operators, algorithmType = AStar) : goal(_goal), operators(_operators) ,algoType(AStar)
 	{
