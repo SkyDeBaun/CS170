@@ -22,13 +22,14 @@ protected:
 
 	vector<const Node*> explored;
 
-	State& goal;
+	State& myGoal;
 	bool problemSolved;
 	algorithmType algoType;
 	Operators operators;
 
+
 public:
-	Problem(const State &_start,  State &_goal, const Operators &_operators, algorithmType = AStar) : goal(_goal), operators(_operators) ,algoType(AStar)
+	Problem(const State &_start,  State &_goal, const Operators &_operators, algorithmType = AStar) : myGoal(_goal), operators(_operators) ,algoType(AStar)
 	{
 		//initialize with root node
 		Node* rootNode(new Node(_start, nullptr, 0));
@@ -47,7 +48,6 @@ public:
 			}
 
 		}//end switch---//
-
 
 	}
 	~Problem()
@@ -75,52 +75,27 @@ public:
 	{
 		//create pointer to current node-----------------
 		const Node* currentNode = nullptr; 
-
-		//if (frontier.empty())
-		{
-			//return currentNode;
-		}
-				
+						
 		//algorithm selection----------------------------
 		switch (algorithm)
 		{
 			case AStar:
-			{
-				//create iterator for frontier-----------
-				//vector<const Node*>::iterator itr(min_element(frontier.begin(), frontier.end()));
-
-				//AStar algorithm here-------------------
-				//priority_queue<const Node*, vector<const Node*>, AStar_Comparator> pq_frontier;
-				//const Node* hihi = nullptr;
-
-				//pq_frontier.push(hihi);
-				//hihi = pq_frontier.top();
-
-				//check frontier-------------------------
-				//if (itr == frontier.end())
+			{				
+				if (!pq_frontier.empty())
 				{
-					//return 0;
-				}
-
-				if (pq_frontier.empty())
-				{
-					return nullptr;
-				}
-
-				//move Node from frontier to visited------
-				//currentNode = *itr;
-				currentNode = pq_frontier.top();
-				explored.push_back(currentNode);
-				//frontier.erase(itr); //
-				pq_frontier.pop();
-
-
-
-
-
+					//move Node from frontier to visited------
+					currentNode = pq_frontier.top();
+					explored.push_back(currentNode);
+					pq_frontier.pop();
+				}				
 				break;
 
 			}//end case AStar---//
+
+			case Greedy:
+			{
+
+			}
 
 			//return pointer to current node--------------
 			
@@ -142,7 +117,7 @@ public:
 			return;
 		}
 
-		if (currentNode->returnState() == this->goal)
+		if (currentNode->returnState() == this->my)
 		{
 			problemSolved = true; //well... goal state found
 			return; //return with goal in currentNode
