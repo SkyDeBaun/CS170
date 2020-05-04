@@ -13,37 +13,41 @@ using std::min_element;
 using std::priority_queue;
 
 
+
 class Problem
 {
 protected:
-	enum algorithmType { AStar, Greedy } algorithm;
 	vector<const Node*> frontier;
 	priority_queue<const Node*, vector<const Node*>, AStar_Comparator> pq_frontier;
+	priority_queue<const Node*, vector<const Node*>, UniformCost> uniform_frontier;
 
 	vector<const Node*> explored;
+	//enum algorithmType { AStar, Uniform, Euclidean } algorithm;
 
 	State& goal;
 	bool problemSolved;
-	algorithmType algoType;
+	//algorithmType algoType;
 	Operators operators;
+	int algoChoice;
+
 
 public:
-	Problem(const State &_start,  State &_goal, const Operators &_operators, algorithmType = AStar) : goal(_goal), operators(_operators) ,algoType(AStar)
+	Problem(const State &_start,  State &_goal, const Operators &_operators, int algo = 1) : goal(_goal), operators(_operators) ,algoChoice(algo)
 	{
 		//initialize with root node
 		Node* rootNode(new Node(_start, nullptr, 0));
 		problemSolved = false;
 
 		//switch based on algorithm type-----------------------
-		switch (algorithm)
+		switch (algoChoice)
 		{
-			case AStar:
+			case 0:
 			{
 				pq_frontier.push(rootNode);
 			}
-			case Greedy:
+			case 1:
 			{
-				frontier.push_back(rootNode); //add root to frontier
+				uniform_frontier.push(rootNode); //add root to frontier
 			}
 
 		}//end switch---//
@@ -76,9 +80,9 @@ public:
 		const Node* currentNode = nullptr; 
 						
 		//algorithm selection----------------------------
-		switch (algorithm)
+		switch (algoChoice)
 		{
-			case AStar:
+			case 0:
 			{				
 				if (!pq_frontier.empty())
 				{
@@ -91,9 +95,17 @@ public:
 
 			}//end case AStar---//
 
-			case Greedy:
+			case 1://uniform frontier
 			{
-
+				
+					if (!uniform_frontier.empty())
+					{
+						//move Node from frontier to visited------
+						currentNode = uniform_frontier.top();
+						explored.push_back(currentNode);
+						uniform_frontier.pop();
+					}
+				break;
 			}
 
 			//return pointer to current node--------------			
@@ -141,16 +153,16 @@ public:
 					const Node *node(new Node(currentState, currentNode, depth)); //create new node
 
 					//switch based on algorithm type-----------------------
-					switch (algorithm)
+					switch (algoChoice)
 					{
-						case AStar:
+						case 0:
 						{
 							pq_frontier.push(node);
 							break;
 						}
-						case Greedy:
+						case 1:
 						{
-							frontier.push_back(node);
+							uniform_frontier.push(node);
 							break;
 						}
 

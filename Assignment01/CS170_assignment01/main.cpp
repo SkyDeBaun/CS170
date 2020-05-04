@@ -10,6 +10,8 @@
 #include "operators.h"
 
 
+
+
 //MAIN---------------------------------------------------
 //-------------------------------------------------------
 int main()
@@ -31,7 +33,7 @@ int main()
 	Operators operators;//map of operators for eight-puzzle(future consideration-> automate on puzzle size)
 
 	//user prompt for default or custom puzzle----------
-	size_t selectPuzzle; //size_t -> no negatives
+	size_t selectPuzzle; 
 
 	cout << "Enter 0 for default 8-puzzle, or 1 to enter custom 8-puzzle:" << "\n";
 	cin >> selectPuzzle;
@@ -54,9 +56,16 @@ int main()
 	//print current puzzle-----------------------------
 	myPuzzle.printState();
 
+	cout << "MENU: \n";
+	cout << "0.) Uniform Cost Search \n";
+	cout << "1.) A* with Misplaced Tile heuristic \n";
+	cout << "3.) A* with Euclidian distance heuristic \n";
+
+	int userInput;
+	cin >> userInput;
 
 	//solution discovery-------------------------------
-	Problem solution(myPuzzle, goalState, operators);//initialize problem solution
+	Problem solution(myPuzzle, goalState, operators, userInput);//initialize problem solution
 	solution.solve();
 
 
