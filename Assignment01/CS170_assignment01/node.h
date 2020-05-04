@@ -40,13 +40,6 @@ public:
 	void print() const
 	{
 		puzzleState.printState();
-
-		//int size = puzzleState.returnSize();
-
-		//for (size_t i = 0; i < size; ++size)
-		//{
-		//	cout << puzzleState.returnState(i) << " \n";
-		//}
 	}
 
 	const State& returnState()const
@@ -54,7 +47,7 @@ public:
 		return puzzleState;
 	}
 	
-	int returnEmptyTile()
+	int returnEmptyTile() //return index of empty puzzle tile
 	{
 		return puzzleState.findEmptyTile();
 	}

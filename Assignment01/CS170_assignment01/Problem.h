@@ -1,21 +1,27 @@
-//creates tree for problem
+//creates tree for node expansion and solution discovery
 #pragma once
 
 #include <algorithm>    // std::min_element, std::max_element
+#include <queue>
 
 #include "node.h"
 #include "state.h"
 #include "operators.h"
+#include "comparators.h"
 
 using std::min_element;
+using std::priority_queue;
 
 
 class Problem
 {
 protected:
-	enum algorithmType { AStar } algorithm;
+	enum algorithmType { AStar, Greedy } algorithm;
 	vector<const Node*> frontier;
+	priority_queue<const Node*, vector<const Node*>, AStar_Comparator> pq_frontier;
+
 	vector<const Node*> explored;
+
 	State& goal;
 	bool problemSolved;
 	algorithmType algoType;
@@ -26,40 +32,29 @@ public:
 	{
 		//initialize with root node
 		Node* rootNode(new Node(_start, nullptr, 0));
-		frontier.push_back(rootNode); //add root to frontier
 		problemSolved = false;
+
+		//switch based on algorithm type-----------------------
+		switch (algorithm)
+		{
+			case AStar:
+			{
+				pq_frontier.push(rootNode);
+			}
+			case Greedy:
+			{
+				frontier.push_back(rootNode); //add root to frontier
+			}
+
+		}//end switch---//
+
+
 	}
 	~Problem()
 	{
 		
 	}
 
-	int getManhattanDistance(const State &state)
-	{
-		int dist = 0;
-		dist = state.returnState(0);//tmp test
-
-		return dist;//tmp val
-	}
-	int getHeuristic(const State &state)
-	{
-		int cost = 0;
-
-		return 0;
-	}
-
-
-	bool operator()(const Node* n1, const Node* n2) 
-	{
-		const State& state1 = n1->returnState();
-		int cost1 = getManhattanDistance(state1) + getHeuristic(state1);
-
-		const State& state2 = n2->returnState();
-		int cost2 =  getManhattanDistance(state2) + getHeuristic(state2);
-
-		return cost1 < cost2;
-
-	}//end bool operator---//
 
 
 	bool inState(const State &state, const vector<const Node*> nodes)
@@ -81,9 +76,9 @@ public:
 		//create pointer to current node-----------------
 		const Node* currentNode = nullptr; 
 
-		if (frontier.empty())
+		//if (frontier.empty())
 		{
-			return currentNode;
+			//return currentNode;
 		}
 				
 		//algorithm selection----------------------------
@@ -92,18 +87,36 @@ public:
 			case AStar:
 			{
 				//create iterator for frontier-----------
-				vector<const Node*>::iterator itr(min_element(frontier.begin(), frontier.end()));
+				//vector<const Node*>::iterator itr(min_element(frontier.begin(), frontier.end()));
+
+				//AStar algorithm here-------------------
+				//priority_queue<const Node*, vector<const Node*>, AStar_Comparator> pq_frontier;
+				//const Node* hihi = nullptr;
+
+				//pq_frontier.push(hihi);
+				//hihi = pq_frontier.top();
 
 				//check frontier-------------------------
-				if (itr == frontier.end())
+				//if (itr == frontier.end())
 				{
-					return 0;
+					//return 0;
+				}
+
+				if (pq_frontier.empty())
+				{
+					return nullptr;
 				}
 
 				//move Node from frontier to visited------
-				currentNode = *itr;
+				//currentNode = *itr;
+				currentNode = pq_frontier.top();
 				explored.push_back(currentNode);
-				frontier.erase(itr); //
+				//frontier.erase(itr); //
+				pq_frontier.pop();
+
+
+
+
 
 				break;
 
@@ -149,11 +162,26 @@ public:
 				//construct the tree of new nodes--------------------------				
 				if (!inState(currentState, explored)) //construct tree on exit (placed into explored)
 				{
-					const Node* nod = nullptr;
+					//const Node* nod = nullptr;
 
 					++depth;//depth of next generation of nodes
 					const Node *node(new Node(currentState, currentNode, depth)); //create new node
-					frontier.push_back(node);
+
+					//switch based on algorithm type-----------------------
+					switch (algorithm)
+					{
+						case AStar:
+						{
+							pq_frontier.push(node);
+							break;
+						}
+						case Greedy:
+						{
+							frontier.push_back(node);
+							break;
+						}
+
+					}//end switch---//
 
 				}//end if---//
 
@@ -189,17 +217,18 @@ public:
 			do
 			{
 				solution.push_back(node);
-				node = currentNode->getParent();
+				node = node->getParent();
 			} while (node != nullptr);
 
 		}//end if---//
 
 		//print solution----------------------------------------
-		cout << "\n" << "The Solution: \n";
+		cout << "\n" << "The Solution: \n\n";
 
 		for (int i = solution.size()-1; i >-1; --i)
 		{
 			solution[i]->print();
+			cout << "\n";
 		}
 
 	}//end solve---//

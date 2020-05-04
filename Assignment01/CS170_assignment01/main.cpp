@@ -18,6 +18,10 @@ int main()
 	vector<int> goal = { 1, 2, 3, 4, 5, 6, 7, 8, 0 }; //goal state for eight-puzzle
 	vector<int> defaultState = { 1, 0, 3, 4, 2, 6, 7, 5, 8 }; //default puzzle grid
 
+	//simple case for testing---------------------------maybe
+	vector<int> four_goal = { 1, 2, 3, 0 };
+	vector<int> four_defaultState = { 1, 0, 3, 2 };
+
 	//create the two puzzle states
 	State goalState(goal);
 	State myPuzzle(defaultState);

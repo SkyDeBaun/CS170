@@ -88,7 +88,9 @@ public:
 	//find empty tile----------------------------------
 	size_t findEmptyTile() const
 	{
-		for (size_t i = 0; i < gridSize; ++i)
+		size_t size = gridSize * gridSize;
+
+		for (size_t i = 0; i < size; ++i)
 		{
 			if (puzzleState[i] == 0)
 			{
@@ -96,7 +98,8 @@ public:
 			}
 		}
 
-		return puzzleState.size();//returns out of bounds value!
+		//to prevent compiler complaining... breaking return value!!!
+		return puzzleState.size();//returns out of bounds value!!!!!!
 
 	}//end findEmptyTile---//
 
