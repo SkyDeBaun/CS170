@@ -9,15 +9,13 @@
 #include "problem.h"
 #include "operators.h"
 
-//goal state moved to operators.h
-vector<int> goal = { 1, 2, 3, 4, 5, 6, 7, 8, 0 }; //goal state for eight-puzzle
-
 
 //MAIN---------------------------------------------------
 //-------------------------------------------------------
 int main()
 {
 	//default setup for eight-puzzle--------------------
+	vector<int> goal = { 1, 2, 3, 4, 5, 6, 7, 8, 0 }; //goal state for eight-puzzle
 	vector<int> defaultState = { 1, 0, 3, 4, 2, 6, 7, 5, 8 }; //default puzzle grid
 
 	//simple case for testing---------------------------maybe
@@ -44,7 +42,7 @@ int main()
 		myPuzzle.createCustomState(selectPuzzle);
 
 		cout << "\n" << "Your puzzle: \n";
-	}	
+	}
 	else //0
 	{
 		cout << "\n" << "The default puzzle: \n";
@@ -58,7 +56,7 @@ int main()
 	Problem solution(myPuzzle, goalState, operators);//initialize problem solution
 	solution.solve();
 
-	
+
 	return 0;
 
 }//END MAIN----------------------------------------------///

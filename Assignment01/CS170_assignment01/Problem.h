@@ -22,14 +22,14 @@ protected:
 
 	vector<const Node*> explored;
 
-	State& myGoal;
+	State& goal;
 	bool problemSolved;
 	algorithmType algoType;
 	Operators operators;
 
 
 public:
-	Problem(const State &_start,  State &_goal, const Operators &_operators, algorithmType = AStar) : myGoal(_goal), operators(_operators) ,algoType(AStar)
+	Problem(const State &_start,  State &_goal, const Operators &_operators, algorithmType = AStar) : goal(_goal), operators(_operators) ,algoType(AStar)
 	{
 		//initialize with root node
 		Node* rootNode(new Node(_start, nullptr, 0));
@@ -117,7 +117,7 @@ public:
 			return;
 		}
 
-		if (currentNode->returnState() == this->my)
+		if (currentNode->returnState() == this->goal)
 		{
 			problemSolved = true; //well... goal state found
 			return; //return with goal in currentNode
