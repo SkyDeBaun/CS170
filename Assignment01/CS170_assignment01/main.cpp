@@ -14,6 +14,8 @@
 //-------------------------------------------------------
 int main()
 {
+	//srand(time(NULL));
+
 	//default setup for eight-puzzle--------------------
 	vector<int> goal = { 1, 2, 3, 4, 5, 6, 7, 8, 0 }; //goal state for eight-puzzle
 	vector<int> defaultState = { 1, 0, 3, 4, 2, 6, 7, 5, 8 }; //default puzzle grid
@@ -36,9 +38,10 @@ int main()
 
 	//puzzle initialization-----------------------------
 	if (selectPuzzle)
-	{
-		cout << "Enter  puzzle size (i.e. 3 for 3x3 = 8 puzzle) \n";
-		cin >> selectPuzzle; //re-using user input variable here ->size ie 3 = 3x3 = 9(eight-puzzle)
+	{	
+		selectPuzzle = 3;
+		//cout << "Enter  puzzle size (i.e. 3 for 3x3 = 8 puzzle) \n";
+		//cin >> selectPuzzle; //re-using user input variable here ->size ie 3 = 3x3 = 9(eight-puzzle)
 		myPuzzle.createCustomState(selectPuzzle);
 
 		cout << "\n" << "Your puzzle: \n";
