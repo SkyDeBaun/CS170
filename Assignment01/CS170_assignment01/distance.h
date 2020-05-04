@@ -63,8 +63,8 @@ public:
 		//populate maps with index-val pair--------------------
 		for (int i = 0; i < size; ++i)
 		{
-			goalPositions.insert(make_pair(myGoal[i], i));
-			currentPositions.insert(make_pair(i, state.returnState(i)));
+			goalPositions.insert(make_pair(myGoal[i], i));//could be made once instead
+			currentPositions.insert(make_pair(i, state.returnState(i)));//same here, for default state
 		}
 
 		for (int i = 0; i < size; ++i)
@@ -94,7 +94,7 @@ public:
 		//srand(time(NULL));
 
 		//tmp
-		dist = rand() & 100;
+		//dist = rand() & 100;
 
 		cout << "Dist: " << dist << " \n";
 		return dist;//tmp val

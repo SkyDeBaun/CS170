@@ -96,8 +96,7 @@ public:
 
 			}
 
-			//return pointer to current node--------------
-			
+			//return pointer to current node--------------			
 
 		}//end switch---//
 
@@ -173,14 +172,11 @@ public:
 		const Node* node = nullptr;
 		vector<const Node*> solution;
 
-
 		while (!problemSolved) //compare against explored
 		{
 			currentNode = traverseFrontier();//traverse and move current Node to explored
 			expandNodes(currentNode); //expand current Node's children
-		}
-
-		
+		}		
 
 		//not solved.. but goal state found--------------------
 		if (problemSolved)
