@@ -8,6 +8,7 @@ protected:
 	State puzzleState;
 	int branchDepth;//using state to hold depth instead
 	const Node* parent; 
+	int heuristicCost;//save when computed during push to priority queue -> print it later
 
 public:
 	//constructor initializes with 
@@ -57,6 +58,10 @@ public:
 	int returnEmptyTile()
 	{
 		return puzzleState.findEmptyTile();
+	}
+	int returnBranchDepth()
+	{
+		return branchDepth;
 	}
 };
 

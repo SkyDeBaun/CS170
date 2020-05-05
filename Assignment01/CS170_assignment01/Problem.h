@@ -39,7 +39,8 @@ public:
 		Node* rootNode(new Node(_start, nullptr, 0));
 		problemSolved = false;
 
-		//switch based on algorithm type-----------------------SWITCH
+		//switch based on algorithm type-----------------------SWITCH puts rootNode into priority queue
+		//note: doing this due to need to pass class to priority queue constructor... not optimal method!
 		switch (algoChoice)
 		{
 			case 2:
@@ -49,7 +50,7 @@ public:
 			}
 			case 1:
 			{
-				uniform_frontier.push(rootNode); //add root to frontier
+				uniform_frontier.push(rootNode);
 				break;
 			}
 			case 3:
@@ -164,7 +165,7 @@ public:
 				State currentState = currentNode->returnState();
 				currentState.swapTiles(emptyTile, move);//swap positions with an operator (move)
 
-				//construct the tree of new nodes--------------------------				
+				//construct the tree of new nodes--------------------------	AVOIDS DUPLICAT STATES (infinit loops)			
 				if (!inState(currentState, explored)) //construct tree on exit (placed into explored)
 				{
 					//const Node* nod = nullptr;
@@ -234,6 +235,7 @@ public:
 
 		for (int i = solution.size()-1; i >-1; --i)
 		{
+			cout << "\n" << "g(n) = " << solution[i]->getDepth() << "\n";
 			solution[i]->print();
 			cout << "\n";
 		}
