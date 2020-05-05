@@ -9,20 +9,23 @@
 
 
 
-class AStar_Comparator
+class AStar_Misplaced
 {
 private:
 	Distance distance;//holds comparision and distance utilities
+	int heuristic;
 
 public:
 	bool operator()(const Node* n1, const Node* n2)
 	{
 
 		const State& state1 = n1->returnState();
-		int cost1 = distance.getManhattanDistance(state1) + distance.getEuclidean(state1);
+		heuristic = distance.misplacedHeuristic(state1);
+		int cost1 = n1->returnState().returnDepth() + heuristic;
 
 		const State& state2 = n2->returnState();
-		int cost2 = distance.getManhattanDistance(state2) + distance.getEuclidean(state2);
+		heuristic = distance.misplacedHeuristic(state2);
+		int cost2 = n2->returnState().returnDepth() + heuristic;
 
 		return cost1 > cost2;
 
@@ -61,10 +64,10 @@ public:
 	{
 
 		const State& state1 = n1->returnState();
-		int cost1 = distance.getEuclidean(state1);
+		int cost1 = n1->returnState().returnDepth() + distance.getEuclidean(state1);
 
 		const State& state2 = n2->returnState();
-		int cost2 = distance.getEuclidean(state2);
+		int cost2 = n2->returnState().returnDepth() + distance.getEuclidean(state2);
 
 		return cost1 > cost2;
 

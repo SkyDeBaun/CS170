@@ -20,6 +20,7 @@ protected:
 	vector<int> myGoal = { 1, 2, 3, 4, 5, 6, 7, 8, 0 }; //duplicating goal state for eight-puzzle->lame!; //cheesy hack...should be avoided -> running into circular dependency issue!!
 	map<int, int> goalPositions;
 	map<int, int> currentPositions;
+	map<int, int> missingPositions;
 
 	int dx;
 	int dy;
@@ -39,10 +40,15 @@ public:
 		for (size_t i = 0; i < myGoal.size(); ++i)
 		{
 			goalPositions.insert(make_pair(myGoal[i], i));//make map of value-position pair
+			missingPositions.insert(make_pair(i,myGoal[i]));//make map
 		}
 	}
 
+	//some function declarations... all should be like this
 	inline void findDistance(const State &state, int &dx, int &dy, int i);
+	inline int misplacedHeuristic(const State &state);
+
+
 
 	inline int returnUniformDistance()
 	{
@@ -113,8 +119,6 @@ public:
 		return euclidsDistance;
 	}
 
-	
-
 };
 
 
@@ -138,3 +142,27 @@ public:
 		dy = abs(y - y2);
 
 }//end findDistance---//
+
+
+
+
+ int Distance::misplacedHeuristic(const State &state)
+ {
+	 int size = state.returnSize();// state.returnSize(); //get number of elements
+	 int counter=0;
+	 	 
+	 for (int i = 0; i < size; ++i)
+	 {
+		 currentPositions.insert(make_pair(i, state.returnState(i)));//populate map with index val pair	 
+		 x = currentPositions.find(i)->second;//get value at index i
+		 x2 = missingPositions.find(i)->second;//get goal position of the value
+
+		 if (x != x2)
+		 {
+			 ++counter;
+		 }
+	 }
+
+	 return counter;
+
+ }//end misplacedHeuristic---//

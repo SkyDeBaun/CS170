@@ -8,6 +8,7 @@
 #include "state.h"
 #include "operators.h"
 #include "comparators.h"
+#include "distance.h"
 
 using std::min_element;
 using std::priority_queue;
@@ -18,7 +19,7 @@ class Problem
 {
 protected:
 	vector<const Node*> frontier;
-	priority_queue<const Node*, vector<const Node*>, AStar_Comparator> pq_frontier;
+	priority_queue<const Node*, vector<const Node*>, AStar_Misplaced> pq_frontier;
 	priority_queue<const Node*, vector<const Node*>, UniformCost> uniform_frontier;
 	priority_queue<const Node*, vector<const Node*>, EuclideanCost> euclidean_frontier;
 
@@ -30,6 +31,7 @@ protected:
 	//algorithmType algoType;
 	Operators operators;
 	int algoChoice;
+	Distance distance;
 
 
 public:
@@ -43,7 +45,7 @@ public:
 		//note: doing this due to need to pass class to priority queue constructor... not optimal method!
 		switch (algoChoice)
 		{
-			case 2:
+			case 2://A* misplaced
 			{
 				pq_frontier.push(rootNode);
 				break;
@@ -173,6 +175,7 @@ public:
 
 					++depth;//depth of next generation of nodes
 					const Node *node(new Node(currentState, currentNode, depth)); //create new node
+					cout << depth << endl;//debug---!!!!!!
 
 					//switch based on algorithm type-----------------------
 					switch (algoChoice)
@@ -234,9 +237,12 @@ public:
 		//print solution----------------------------------------
 		cout << "\n" << "The Solution: \n\n";
 
+
+
 		for (int i = solution.size()-1; i >-1; --i)
 		{
-			cout << "\n" << "g(n) = " << solution[i]->getDepth() << "\n";
+			
+			cout << "\n" << "g(n) = " << solution[i]->getDepth()<<  "\n";
 			solution[i]->print();
 			cout << "\n";
 		}
