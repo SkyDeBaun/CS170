@@ -36,7 +36,7 @@ public:
 	Distance()
 	{
 		//populate maps with index-val pair--------------------
-		for (int i = 0; i < myGoal.size(); ++i)
+		for (size_t i = 0; i < myGoal.size(); ++i)
 		{
 			goalPositions.insert(make_pair(myGoal[i], i));//make map of value-position pair
 		}
@@ -71,7 +71,7 @@ public:
 		int dist = 0;//reset this shared va
 		currentPositions.clear();
 
-		for (int i = 0; i < size; ++i)
+		for (size_t i = 0; i < size; ++i)
 		{
 			currentPositions.insert(make_pair(i, state.returnState(i)));//populate map with index val pair
 			findDistance(state, dx, dy, i);
@@ -82,6 +82,11 @@ public:
 		//cout << "Dist: " << dist << " \n";
 		return dist;
 	}//end getManhatten---//
+
+	inline int getUniformDistance(const State &state)
+	{
+		int cost = state.returnDepth();
+	}
 
 
 	inline int getHeuristic(const State &state)
@@ -97,7 +102,7 @@ public:
 		double euclidsDistance = 0.0;
 		currentPositions.clear();
 
-		for (int i = 0; i < size; ++i)
+		for (size_t i = 0; i < size; ++i)
 		{
 			currentPositions.insert(make_pair(i, state.returnState(i)));
 			findDistance(state, dx, dy, i);

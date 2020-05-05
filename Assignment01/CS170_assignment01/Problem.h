@@ -144,7 +144,7 @@ public:
 	{
 		if (currentNode == nullptr)
 		{
-			//oops
+			//no solution---------------???
 			return;
 		}
 
@@ -155,13 +155,14 @@ public:
 		}
 		else
 		{
-			int emptyTile = currentNode->returnState().findEmptyTile(); //get position of blanc (ie empty) tile
-			int depth = currentNode->returnState().returnDepth();
+			int emptyTile = currentNode->returnState().findEmptyTile(); //get position of blanc (ie empty) tile			
 			const vector<int> &ops = operators.getPossibleMoves(emptyTile); //return vector of possible moves
 
+			int depth;
 			//iterate through ops for retuned moves------------------------
 			for (int move : ops)
 			{
+				depth = currentNode->returnBranchDepth();//"reset" the depth here
 				State currentState = currentNode->returnState();
 				currentState.swapTiles(emptyTile, move);//swap positions with an operator (move)
 

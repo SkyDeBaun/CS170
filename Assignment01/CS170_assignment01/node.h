@@ -16,6 +16,7 @@ public:
 		: parent(parent), branchDepth(depth), puzzleState(puzzleState)
 	{
 		parent = parent;//freaky
+
 	}
 		
 	~Node()
@@ -59,7 +60,7 @@ public:
 	{
 		return puzzleState.findEmptyTile();
 	}
-	int returnBranchDepth()
+	int returnBranchDepth() const
 	{
 		return branchDepth;
 	}
