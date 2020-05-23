@@ -51,7 +51,7 @@ public:
 	{
 		return puzzleState.findEmptyTile();
 	}
-	int returnBranchDepth() const
+	int returnBranchDepth() const//oops.. duplicated getDepth above
 	{
 		return branchDepth;
 	}

@@ -33,6 +33,11 @@ protected:
 	int algoChoice;
 	Distance distance;
 
+	int totalNodes;
+	int nodesExplored;
+	int maxNodesInQueue;
+	int currentNodesInQueue;
+
 
 public:
 	Problem(const State &_start,  State &_goal, const Operators &_operators, int algo = 1) : goal(_goal), operators(_operators) ,algoChoice(algo)
@@ -60,6 +65,8 @@ public:
 				euclidean_frontier.push(rootNode);
 				break;
 			}
+
+			++maxNodesInQueue;
 
 		}//end switch---//
 
@@ -131,7 +138,7 @@ public:
 				break;
 			}
 
-			//return pointer to current node--------------			
+			--maxNodesInQueue;
 
 		}//end switch---//
 
@@ -177,6 +184,10 @@ public:
 					const Node *node(new Node(currentState, currentNode, depth)); //create new node
 					cout << depth << endl;//debug---!!!!!!
 
+
+					++totalNodes;//total nodes expanded into frontier
+					
+
 					//switch based on algorithm type-----------------------
 					switch (algoChoice)
 					{
@@ -195,6 +206,8 @@ public:
 							euclidean_frontier.push(node);
 							break;
 						}
+
+						++maxNodesInQueue;
 
 					}//end switch---//
 
@@ -236,7 +249,7 @@ public:
 
 		//print solution----------------------------------------
 		cout << "\n" << "The Solution: \n\n";
-
+		int nodesInSolution = 0;
 
 
 		for (int i = solution.size()-1; i >-1; --i)
@@ -245,7 +258,12 @@ public:
 			cout << "\n" << "g(n) = " << solution[i]->getDepth()<<  "\n";
 			solution[i]->print();
 			cout << "\n";
+			++nodesInSolution;
 		}
+
+		cout << "The total number of Nodes created: " << totalNodes << "\n";
+		//cout << "The Max number of Nodes in the Queue: " << euclidean_frontier.size() << "\n";
+		cout << "The total number of Nodes in solution: " << nodesInSolution << "\n\n";
 
 	}//end solve---//
 

@@ -95,12 +95,7 @@ public:
 	}
 
 
-	inline int getHeuristic(const State &state)
-	{
-		int cost = 0;
-
-		return cost;
-	}
+	
 
 	inline double getEuclidean(const State &state)
 	{

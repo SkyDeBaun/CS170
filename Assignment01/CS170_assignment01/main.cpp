@@ -8,7 +8,7 @@
 #include "state.h"
 #include "problem.h"
 #include "operators.h"
-
+#include "Timer.h"
 
 
 
@@ -31,6 +31,8 @@ int main()
 	State myPuzzle(defaultState);
 
 	Operators operators;//map of operators for eight-puzzle(future consideration-> automate on puzzle size)
+	Timer t; //init timer object
+
 
 	//user prompt for default or custom puzzle----------
 	size_t selectPuzzle; 
@@ -66,7 +68,12 @@ int main()
 
 	//solution discovery-------------------------------
 	Problem solution(myPuzzle, goalState, operators, userInput);//initialize problem solution
+	
+	t.startTimer();
 	solution.solve();
+	t.stopTimer();
+
+	cout << "Time to find solution: "  << std::fixed << t.getSeconds() << " seconds" << endl;
 
 
 	return 0;
