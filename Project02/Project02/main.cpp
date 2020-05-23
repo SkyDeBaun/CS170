@@ -9,11 +9,7 @@
 
 
 //using-----------------------------------
-using std::istringstream;
 using std::vector;
-using std::fstream;
-using std::string;
-using std::ios;
 using std::cout;
 
 
@@ -25,12 +21,14 @@ using std::cout;
 //----------------------------------------------------
 int main()
 {
+	//convert sample data set to numeric values-------
 	DataConvert conversion; //data conversion object converts sample data
 
-	//convert sample data set to numeric values-------
-	vector <double> dataTest;
-	fstream file;
-	conversion.convertFile(file, "data/cs_170_small80.txt", dataTest, true); //parameters: fstream, filename, vector, debug ouput
+	vector <double> smallDataSet;
+	conversion.convertFile("data/cs_170_small80.txt", smallDataSet, true); //parameters: filename, vector, debug = false
+
+	vector <double> largeDataSet;
+	conversion.convertFile("data/cs_170_large80.txt", largeDataSet); //parameters: filename, vector, debug = false
 
 	
 	return 0;
