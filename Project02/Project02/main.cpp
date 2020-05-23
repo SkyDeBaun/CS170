@@ -30,7 +30,7 @@ int main()
 	//convert sample data set to numeric values-------
 	vector <double> dataTest;
 	fstream file;
-	conversion.convertFile(file, "cs_170_small80.txt", dataTest, false); //parameters: fstream, filename, vector, debug ouput
+	conversion.convertFile(file, "data/cs_170_small80.txt", dataTest, true); //parameters: fstream, filename, vector, debug ouput
 
 	
 	return 0;
