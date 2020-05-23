@@ -2,11 +2,14 @@
 
 //includes--------------------------------
 #include <iostream>
+#include <sstream> //not using
 #include <fstream>
 #include <vector>
 #include <string>
+#include <iomanip> //set precision (debug output)
 
 //using-----------------------------------
+using std::istringstream;
 using std::vector;
 using std::fstream;
 using std::string;
@@ -17,55 +20,24 @@ using std::cout;
 bool openFile(fstream &file, const char *name);
 void convertFile(fstream &file, const char *name, vector<double> &numbers);
 
+
+
 //MAIN------------------------------------------------
 //----------------------------------------------------
 int main()
 {
+	//convert sample data set to numeric values-------
 	vector <double> dataTest;
-
 	fstream file;
-	if (openFile(file, "cs_170_small80.txt"))
-	{
-		string word;
-		char ch;
-		int counter = 0;
-		bool newWord = false;
+	convertFile(file, "cs_170_small80.txt", dataTest);
 
-		file.get(ch);
-
-		while (!file.eof())
-		{
-			
-			if (ch != ' ' && ch != 10)//if not blank or newline
-			{
-				word.push_back(ch);
-				newWord = true;//on a new word
-			}
-			else if ((ch == ' '|| ch == 10) && newWord)
-			{				
-					cout << word << std::endl;
-					word.clear();
-					newWord = false;// ready for next new word
-								
-			}
-
-			file.get(ch); //get next char from file
-		}
-	}
-	else
-	{
-		cout << "Error reading file \n";
-	}
-
-
-
+	
 	return 0;
 
 }//end main-------------------------------------------///
 
 
-
-
+//openFile (tests for valid file)---------------------
 bool openFile(fstream &file, const char *name)
 {
 	bool status;
@@ -84,20 +56,20 @@ bool openFile(fstream &file, const char *name)
 }//end readFile---//
 
 
+//convertFile (converts to doubles, store in vector)-
 void convertFile(fstream &file, const char *name, vector<double> &numbers)
 {
 	if (openFile(file, name))
 	{
 		string word;
 		char ch;
-		int counter = 0;
 		bool newWord = false;
+		double number;
 
-		file.get(ch);
+		file.get(ch);//get first char from text file
 
 		while (!file.eof())
 		{
-
 			if (ch != ' ' && ch != 10)//if not blank or newline
 			{
 				word.push_back(ch);
@@ -105,10 +77,16 @@ void convertFile(fstream &file, const char *name, vector<double> &numbers)
 			}
 			else if ((ch == ' ' || ch == 10) && newWord)
 			{
-				cout << word << std::endl;
-				word.clear();
-				newWord = false;// ready for next new word
+				number = std::stod(word);
+				numbers.push_back(number); //store in vector of doubles
 
+				//debug (verify output)-----------------------
+				//cout << std::fixed;
+				//cout << std::setprecision(9);
+				//cout << number << std::endl; //debug output as double
+
+				word.clear(); //clear word for next 
+				newWord = false;// ready for next new word
 			}
 
 			file.get(ch); //get next char from file
