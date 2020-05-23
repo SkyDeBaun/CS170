@@ -50,8 +50,7 @@ void DataConvert::convertFile(const char *name, vector<double> &numbers, bool de
 					cout << std::fixed;
 					cout << std::setprecision(9);
 					cout << number << std::endl; //debug output as double
-				}
-				
+				}				
 
 				word.clear(); //clear word for next 
 				newWord = false;// ready for next new word

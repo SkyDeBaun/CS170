@@ -24,6 +24,5 @@ public:
 
 private:
 	fstream file;
-
 };
 
