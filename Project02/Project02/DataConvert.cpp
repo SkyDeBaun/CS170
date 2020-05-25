@@ -105,6 +105,8 @@ void DataConvert::printTable(DataObject *data)
 
 	for (size_t i = 0; i < size; ++i)
 	{
+		cout << std::fixed;
+		std::setprecision(8);
 		cout << data->getValue(i) << "  ";
 
 		if ((i + 1) % cols == 0)
