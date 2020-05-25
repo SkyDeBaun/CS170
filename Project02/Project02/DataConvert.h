@@ -1,6 +1,6 @@
 #pragma once
-//CS170 -> Intro to AI -> Project02 -> Nearst Neighbor Classifier -> Sky DeBaun
-//converts text file of sample data set to normalized data set
+//CS170 -> Intro to AI -> Project02 -> Nearest Neighbor Classifier -> Sky DeBaun
+//parses text file (feature data set) and stores a normalized data set in DataObject (vector member)
 
 #include <iostream>
 #include <fstream>
@@ -21,9 +21,9 @@ using std::cout;
 class DataConvert
 {
 public:
-	bool openFile(const char *name);//test for valid file
-	void convertFile(const char *name, DataObject *data, bool debug = false);//convert text file to vector of doubles
-	void normalize(DataObject *data);
+	bool openFile(const char *name);//test for valid file stream
+	void parseDataFile(const char *name, DataObject *data, bool debug = false);//convert text file with data set to DataObject
+	void normalize(DataObject *data);//calls functions in DataObject class
 	void printTable(DataObject *data);
 
 private:

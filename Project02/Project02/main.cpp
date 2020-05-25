@@ -5,6 +5,7 @@ Text Data File makes these assumptions:
 -entries are space delimited
 -rows are newline delimited
 -the first elements of each row are class identifiers
+-the next elements are class features
 */
 
 //includes--------------------------------
@@ -35,13 +36,9 @@ int main()
 	vector <double> smallDataVector;
 	DataObject *smallData;
 	smallData = new DataObject(smallDataVector);
-	conversion.convertFile("data/cs_170_small80.txt", smallData); //parameters: filename, vector, debug = false
-
-	//verify: 
-	conversion.printTable(smallData);
+	conversion.parseDataFile("data/cs_170_small80.txt", smallData, true); //parameters: filename, vector, debug = false
 
 	//verify: normalized
-	conversion.normalize(smallData);
 	conversion.printTable(smallData);
 
 
@@ -49,8 +46,8 @@ int main()
 	vector <double> largeDataVector;
 	DataObject *largeData;
 	largeData = new DataObject(largeDataVector);
-	conversion.convertFile("data/cs_170_large80.txt", largeData); //parameters: filename, vector, debug = false
-	conversion.normalize(largeData);
+	conversion.parseDataFile("data/cs_170_large80.txt", largeData); //parameters: filename, vector, debug = false
+	//conversion.normalize(largeData);
 	
 	//cleanup
 	delete smallData;

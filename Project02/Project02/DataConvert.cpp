@@ -22,19 +22,21 @@ bool DataConvert::openFile(const char *name)
 
 
 //convertFile (converts to doubles, store in vector)-
-void DataConvert::convertFile(const char *name, DataObject *data, bool debug)
+void DataConvert::parseDataFile(const char *name, DataObject *data, bool debug)
 {
-	if (openFile(name))//test for valid file -> begin conversion if so
+	if (openFile(name))//test for valid file -> begin conversion routine if so
 	{
-		string word; //accumulates collection of characters -> represents parsed data field
+		string word; //accumulates collection of characters -> represents one parsed data field
 		char ch; //individual characters from text file
 		bool newWord = false; //track if on new data field
 		double number; //temporarily holds converted parsed value
-		int columnCounter = 0; //count columns 'till newline
+		int columnCounter = 0; //count columns (untill first newline encountered!)
 		bool columnsCounted = false;
+
 
 		file.get(ch);//get first char from text file
 
+		//loop until end of file--------------------------------
 		while (!file.eof())
 		{
 			if (ch != ' ' && ch != 10)//if not space or newline
@@ -55,16 +57,16 @@ void DataConvert::convertFile(const char *name, DataObject *data, bool debug)
 				if (ch == 10 && !columnsCounted)//count # of columns (allows for auto adjusting)
 				{
 					columnsCounted = true;
-					cout << "Columns: " << columnCounter << std::endl;
+					//cout << "Columns: " << columnCounter << std::endl;
 					data->updateCols(columnCounter); //store # columns
 				}
 
 				//debug (verify output)-----------------------
-				if (debug)
+				if (debug)//see if debug below for parsed data set (this is element by element only)
 				{
-					cout << std::fixed;
-					cout << std::setprecision(8);
-					cout << number << std::endl; //debug output as double
+					//cout << std::fixed;
+					//cout << std::setprecision(8);
+					//cout << number << std::endl; //debug output as double
 				}
 
 				word.clear(); //clear word for next 
@@ -75,9 +77,18 @@ void DataConvert::convertFile(const char *name, DataObject *data, bool debug)
 
 		}//end while---//
 		
-		file.close(); //close the file
-		
-		//this->normalize(data); //calling manually in main for printing before and after verification
+		//close the filestream----------------------------------
+		file.close(); 		
+
+		//print pre-normalized data-----------------------------
+		if (debug)//avoid for very large data sets!
+		{
+			cout << "The parsed data set (pre-normalized): \n\n"; 
+			this->printTable(data);
+		}
+
+		//normalize the data set-------------------------------
+		this->normalize(data); //can call manually in main for printing before and after verification instead (normalized data IS protected from overwrite)
 	}
 	else
 	{
@@ -107,9 +118,13 @@ void DataConvert::printTable(DataObject *data)
 
 void DataConvert::normalize(DataObject *data)
 {
-	data->calcAverage();
-	data->calcStandardDeviation();
-	data->normalize();
+	if (!data->getNormalizedStatus())
+	{
+		cout <<"\n" <<  "Normalizing the Data Set... \n";
+		data->calcAverage();
+		data->calcStandardDeviation();
+		data->normalize();
+	}	
 
 }//end normalize---//
 

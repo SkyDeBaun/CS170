@@ -1,3 +1,5 @@
+//CS170 -> Sky DeBaun
+//DataObject encapsulates data and normalization functionality
 #pragma once
 
 #include <iostream>
@@ -12,16 +14,19 @@ class DataObject
 private:
 	int columns;
 	vector<double> &data;
-	double preNormalAverage;
+	double preNormalAverage; 
 	double standardDeviation;
+	bool normalized; //used to protect allready normalized data set
 
 
 public:
 	DataObject(vector<double> &vec):data(vec)
-	{		
+	{
+		normalized = false;
 	}
 	DataObject(vector<double> &vec, int cols) : data(vec), columns(cols)
 	{
+		normalized = false;
 	}
 	void updateCols(int cols)
 	{
@@ -50,6 +55,10 @@ public:
 	double getStandardDeviation()
 	{
 		return standardDeviation;
+	}
+	bool getNormalizedStatus()
+	{
+		return normalized;
 	}
 	vector<double>& getData()
 	{
@@ -90,22 +99,27 @@ public:
 			}
 		}
 		standardDeviation = sqrt(accumulator/ (rows * (columns - 1)));
-		cout << "Standard Deviation: " << standardDeviation << std::endl;//debug->verify expected value
+		cout << "Standard Deviation: " << standardDeviation << "\n\n"; //debug-> verify expected value
 
 	}//end calcStandardDeviation---//
 
 	//normalize the data set-------------------------------------
 	void normalize()
 	{
-		size_t size = data.size(); //total # of elements
-
-		for (size_t i = 0; i < size; ++i)
+		if (!normalized)//lets not do this again (in case called more than once-> ie from main for print verification)
 		{
-			if (i%columns != 0)
+			size_t size = data.size(); //total # of elements
+
+			for (size_t i = 0; i < size; ++i)
 			{
-				data[i] = (data[i] - preNormalAverage) / standardDeviation;
+				if (i%columns != 0)
+				{
+					data[i] = (data[i] - preNormalAverage) / standardDeviation;
+				}
 			}
-		}
+
+			normalized = true; //set flag
+		}		
 
 	}//end normalize---//
 
