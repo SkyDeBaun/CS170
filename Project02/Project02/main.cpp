@@ -1,4 +1,11 @@
-//CS170 Project02 -> Sky DeBaun -> Spring 2020
+//CS170 -> Intro to AI -> Project02 -> Nearst Neighbor Classifier -> Sky DeBaun
+
+/*
+Text Data File makes these assumptions:
+-entries are space delimited
+-rows are newline delimited
+-the first elements of each row are class identifiers
+*/
 
 //includes--------------------------------
 #include <iostream>
@@ -30,10 +37,12 @@ int main()
 	smallData = new DataObject(smallDataVector);
 	conversion.convertFile("data/cs_170_small80.txt", smallData); //parameters: filename, vector, debug = false
 
-	//verify:
+	//verify: 
 	conversion.printTable(smallData);
 
-
+	//verify: normalized
+	conversion.normalize(smallData);
+	conversion.printTable(smallData);
 
 
 	//large data set----------------------------------
@@ -41,7 +50,7 @@ int main()
 	DataObject *largeData;
 	largeData = new DataObject(largeDataVector);
 	conversion.convertFile("data/cs_170_large80.txt", largeData); //parameters: filename, vector, debug = false
-
+	conversion.normalize(largeData);
 	
 	//cleanup
 	delete smallData;

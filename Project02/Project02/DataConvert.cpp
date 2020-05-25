@@ -31,7 +31,6 @@ void DataConvert::convertFile(const char *name, DataObject *data, bool debug)
 		bool newWord = false; //track if on new data field
 		double number; //temporarily holds converted parsed value
 		int columnCounter = 0; //count columns 'till newline
-		int rowCounter = 0; //count rows (items to classify)
 		bool columnsCounted = false;
 
 		file.get(ch);//get first char from text file
@@ -45,18 +44,19 @@ void DataConvert::convertFile(const char *name, DataObject *data, bool debug)
 			}
 			else if ((ch == ' ' || ch == 10) && newWord) //if space or newline char and its a new word
 			{
-
 				number = std::stod(word);
-				//numbers.push_back(number); //store in vector of doubles
 				data->pushData(number);
-				++columnCounter;
 
-				if (ch == 10 && !columnsCounted)
+				if (!columnsCounted)
 				{
-					//all columns counted
+					++columnCounter;
+				}
+								
+				if (ch == 10 && !columnsCounted)//count # of columns (allows for auto adjusting)
+				{
 					columnsCounted = true;
 					cout << "Columns: " << columnCounter << std::endl;
-					data->updateCols(columnCounter);
+					data->updateCols(columnCounter); //store # columns
 				}
 
 				//debug (verify output)-----------------------
@@ -74,8 +74,10 @@ void DataConvert::convertFile(const char *name, DataObject *data, bool debug)
 			file.get(ch); //get next char from text file
 
 		}//end while---//
-
+		
 		file.close(); //close the file
+		
+		//this->normalize(data); //calling manually in main for printing before and after verification
 	}
 	else
 	{
@@ -92,7 +94,7 @@ void DataConvert::printTable(DataObject *data)
 
 	for (size_t i = 0; i < size; ++i)
 	{
-		cout << data->getValue(i) << "\t";
+		cout << data->getValue(i) << "  ";
 
 		if ((i + 1) % cols == 0)
 		{
@@ -103,4 +105,11 @@ void DataConvert::printTable(DataObject *data)
 }//end printTable---//
 
 
+void DataConvert::normalize(DataObject *data)
+{
+	data->calcAverage();
+	data->calcStandardDeviation();
+	data->normalize();
+
+}//end normalize---//
 
