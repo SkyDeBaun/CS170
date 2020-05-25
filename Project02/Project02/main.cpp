@@ -18,6 +18,8 @@ Valid Text Data Files make the following asumptions:
 
 #include "DataConvert.h"
 #include "DataObject.h"
+#include "NearestNeighborClassifier.h"
+
 
 //using------------------------------------
 using std::vector;
@@ -31,7 +33,7 @@ using std::cout;
 int main()
 {
 	//convert sample data set to numeric values-------
-	DataConvert conversion; //data conversion object parses ascii text datafile and stores its normalized dataset
+	DataConvert conversion; //data conversion object parses ascii-text datafile and stores its normalized dataset
 
 
 	//small data set----------------------------------
@@ -42,6 +44,9 @@ int main()
 	conversion.parseDataFile("data/cs_170_small80.txt", smallData, true); //parameters: filename, vector, debug = false
 	conversion.printTable(smallData); //debug -> verify: normalized
 
+	//classifier initialization-----------------------
+	NearestNeighborClassifier classify(smallData);
+	classify.classify(0);//test case 
 
 	//large data set----------------------------------
 	cout<< "\n" << "Large Dataset: ";

@@ -64,6 +64,7 @@ public:
 	{
 		return data;
 	}
+	
 
 	//calculate average of all values in data set---------------
 	void calcAverage()
