@@ -1,11 +1,14 @@
-//CS170 -> Intro to AI -> Project02 -> Nearst Neighbor Classifier -> Sky DeBaun
+//CS170 -> Intro to AI -> Project02 -> Nearst Neighbor Classifier 
+//Sky DeBaun
 
 /*
-Text Data File makes these asumptions:
--entries are space delimited
+Valid Text Data Files make the following asumptions:
+-entries are space delimited characters representing numerals
 -rows are newline delimited
--the first elements of each row are class identifiers
--the next elements are class features (I accept variable # of features automatically)
+-the first newline character determines total # of columns in the dataset
+-the first element of each row *are class identifiers, then:
+-the following elements are class features (I accept variable # of feature columns automagically)
+-data stored in one 1D vector within DataObject class
 */
 
 //includes--------------------------------
@@ -33,6 +36,7 @@ int main()
 	DataConvert conversion; //data conversion object converts sample data
 
 	//small data set----------------------------------
+	cout << "Small Dataset: ";
 	vector <double> smallDataVector;
 	DataObject *smallData;
 	smallData = new DataObject(smallDataVector);
@@ -41,6 +45,7 @@ int main()
 
 
 	//large data set----------------------------------
+	cout<< "\n" << "Large Dataset: ";
 	vector <double> largeDataVector;
 	DataObject *largeData;
 	largeData = new DataObject(largeDataVector);

@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include <vector>
-#include <math.h>//for square root
+#include <math.h>//for squareroot, pow
 
 using std::vector;
 using std::cout;
