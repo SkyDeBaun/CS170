@@ -20,8 +20,9 @@ bool DataConvert::openFile(const char *name)
 }//end readFile---//
 
 
+
 //convertFile (converts to doubles, store in vector)-
-void DataConvert::convertFile(const char *name, vector<double> &numbers, bool debug)
+void DataConvert::convertFile(const char *name, DataObject *data, bool debug)
 {
 	if (openFile(name))//test for valid file -> begin conversion if so
 	{
@@ -29,6 +30,9 @@ void DataConvert::convertFile(const char *name, vector<double> &numbers, bool de
 		char ch; //individual characters from text file
 		bool newWord = false; //track if on new data field
 		double number; //temporarily holds converted parsed value
+		int columnCounter = 0; //count columns 'till newline
+		int rowCounter = 0; //count rows (items to classify)
+		bool columnsCounted = false;
 
 		file.get(ch);//get first char from text file
 
@@ -41,16 +45,27 @@ void DataConvert::convertFile(const char *name, vector<double> &numbers, bool de
 			}
 			else if ((ch == ' ' || ch == 10) && newWord) //if space or newline char and its a new word
 			{
+
 				number = std::stod(word);
-				numbers.push_back(number); //store in vector of doubles
+				//numbers.push_back(number); //store in vector of doubles
+				data->pushData(number);
+				++columnCounter;
+
+				if (ch == 10 && !columnsCounted)
+				{
+					//all columns counted
+					columnsCounted = true;
+					cout << "Columns: " << columnCounter << std::endl;
+					data->updateCols(columnCounter);
+				}
 
 				//debug (verify output)-----------------------
 				if (debug)
 				{
 					cout << std::fixed;
-					cout << std::setprecision(9);
+					cout << std::setprecision(8);
 					cout << number << std::endl; //debug output as double
-				}				
+				}
 
 				word.clear(); //clear word for next 
 				newWord = false;// ready for next new word
@@ -69,7 +84,23 @@ void DataConvert::convertFile(const char *name, vector<double> &numbers, bool de
 
 }//end convertFile---//
 
+//verify proper instance (row) capture from parse operation
+void DataConvert::printTable(DataObject *data)
+{
+	int size = data->getSize();
+	int cols = data->getCols();
 
+	for (size_t i = 0; i < size; ++i)
+	{
+		cout << data->getValue(i) << "\t";
+
+		if ((i + 1) % cols == 0)
+		{
+			cout << "\n";
+		}
+	}
+
+}//end printTable---//
 
 
 

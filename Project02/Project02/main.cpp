@@ -6,7 +6,7 @@
 #include <vector>
 
 #include "DataConvert.h"
-
+#include "DataObject.h"
 
 //using-----------------------------------
 using std::vector;
@@ -24,13 +24,29 @@ int main()
 	//convert sample data set to numeric values-------
 	DataConvert conversion; //data conversion object converts sample data
 
-	vector <double> smallDataSet;
-	conversion.convertFile("data/cs_170_small80.txt", smallDataSet, true); //parameters: filename, vector, debug = false
+	//small data set----------------------------------
+	vector <double> smallDataVector;
+	DataObject *smallData;
+	smallData = new DataObject(smallDataVector);
+	conversion.convertFile("data/cs_170_small80.txt", smallData); //parameters: filename, vector, debug = false
 
-	vector <double> largeDataSet;
-	conversion.convertFile("data/cs_170_large80.txt", largeDataSet); //parameters: filename, vector, debug = false
+	//verify:
+	conversion.printTable(smallData);
+
+
+
+
+	//large data set----------------------------------
+	vector <double> largeDataVector;
+	DataObject *largeData;
+	largeData = new DataObject(largeDataVector);
+	conversion.convertFile("data/cs_170_large80.txt", largeData); //parameters: filename, vector, debug = false
 
 	
+	//cleanup
+	delete smallData;
+	delete largeData;
+
 	return 0;
 
 }//end main-------------------------------------------///
