@@ -11,7 +11,7 @@ Valid Text Data Files make the following asumptions:
 -data stored in one 1D vector within DataObject class
 */
 
-//includes--------------------------------
+//includes---------------------------------
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -19,21 +19,20 @@ Valid Text Data Files make the following asumptions:
 #include "DataConvert.h"
 #include "DataObject.h"
 
-//using-----------------------------------
+//using------------------------------------
 using std::vector;
 using std::cout;
 
 
-//function prototypes----------------------
 
 
-
-//MAIN------------------------------------------------
-//----------------------------------------------------
+//MAIN---------------------------------------------------------------------------
+//-------------------------------------------------------------------------------
 int main()
 {
 	//convert sample data set to numeric values-------
-	DataConvert conversion; //data conversion object converts sample data
+	DataConvert conversion; //data conversion object parses ascii text datafile and stores its normalized dataset
+
 
 	//small data set----------------------------------
 	cout << "Small Dataset: ";
@@ -60,6 +59,3 @@ int main()
 	return 0;
 
 }//end main-------------------------------------------///
-
-
-//function definitions--------------------------------
