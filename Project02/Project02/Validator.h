@@ -9,14 +9,13 @@
 class Validator
 {
 private:
-
+	DataObject *data;
+	NearestNeighborClassifier *classifier;
+	vector<bool> *subset;//boolean key identifies feature subset (of DataObject) to classify
 
 public:
-
-	Validator()
-	{
-
-	}
+	Validator();
+	double getAccuracy();
 
 };
 
