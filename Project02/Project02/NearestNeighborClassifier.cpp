@@ -1,6 +1,6 @@
 #include "NearestNeighborClassifier.h"
 
-
+//constructor-------------------------------
 NearestNeighborClassifier::NearestNeighborClassifier(DataObject *dat) : data(dat)
 {
 	cols = data->getCols();
@@ -32,26 +32,22 @@ int NearestNeighborClassifier::classify(size_t instance)//return class given nea
 }
 
 
-
-int NearestNeighborClassifier::classify(DataObject *unknown)
+//nearest neighbor overide----------------------
+int NearestNeighborClassifier::classify(DataObject *unknown)//overloaded classify function accepts DataObject pointer
 {
-	myQueue.clear(); //using simple vector, will sort after filled... my priority_queue not sorting on push!
+	myQueue.clear(); //using simple vector, will sort after filled...  priority_queue not sorting on insert!
 
 	int classID = -1;
 	double distance = 0.0;
 
 	for (size_t i = 0; i < rows; ++i)
-	{
-		
+	{		
 			classID = (int)data->getValue(i*cols);
 			distance = getDistance(unknown, i);
-
-			//priorityQueue.push(make_pair(distance, classID)); //fails to properly sort on insert!!!
-			myQueue.push_back(make_pair(distance, classID));
-		
+			myQueue.push_back(make_pair(distance, classID));		
 	}
 
-	//sort here instead---------------------------
+	//sort here-------------------------------
 	sort(myQueue.begin(), myQueue.end());
 
 	return myQueue[0].second;
@@ -81,7 +77,7 @@ double NearestNeighborClassifier::getDistance(size_t here, size_t there)//distan
 	return accumulator;
 }
 
-
+//get distance overide-------------------------
 double NearestNeighborClassifier::getDistance(DataObject *unknown, size_t there)//distance between two given instances(rows)
 {
 	double accumulator = 0.0;
