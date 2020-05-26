@@ -35,8 +35,8 @@ private:
 
 public:
 	NearestNeighborClassifier(DataObject *dat);
-	int classify(size_t instance);//parameter represents instance (row) to find nearest neighbor of -> used for training
-	int classify(DataObject *unknown);//parameter represents unknown class instance
+	int classifier(size_t instance);//parameter represents instance (row) to find nearest neighbor of -> used for training
+	int classifier(DataObject *unknown);//parameter represents unknown class instance
 
 	double getDistance(size_t here, size_t there);//distance between two given instances(rows)
 	double getDistance(DataObject *unknown, size_t there);//distance between two given instances(rows)

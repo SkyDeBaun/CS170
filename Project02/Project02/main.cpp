@@ -16,10 +16,10 @@ Valid Text Data Files make the following asumptions:
 #include <fstream>
 #include <vector>
 
-#include "DataConvert.h"
+#include "DataParser.h"
 #include "DataObject.h"
 #include "NearestNeighborClassifier.h"
-
+#include "Validator.h"
 
 //using------------------------------------
 using std::vector;
@@ -33,8 +33,7 @@ using std::cout;
 int main()
 {
 	//convert sample data set to numeric values-------
-	DataConvert conversion; //data conversion object parses ascii-text datafile and stores its normalized dataset
-
+	DataParser conversion; //data conversion object parses ascii-text datafile and stores its normalized dataset
 
 	//small data set----------------------------------
 	cout << "Small Dataset: ";
@@ -46,7 +45,7 @@ int main()
 
 	//classifier initialization-----------------------
 	NearestNeighborClassifier classify(smallData);
-	cout << "Nearest class is: " << classify.classify(37);//test case -> manual instance selection
+	cout << "Nearest class is: " << classify.classifier(37);//test case -> manual instance selection
 
 	//large data set----------------------------------
 	cout<< "\n" << "Large Dataset: ";

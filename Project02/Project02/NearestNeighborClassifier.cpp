@@ -8,7 +8,7 @@ NearestNeighborClassifier::NearestNeighborClassifier(DataObject *dat) : data(dat
 	rows = size / cols;
 }
 
-int NearestNeighborClassifier::classify(size_t instance)//return class given nearest neighbor
+int NearestNeighborClassifier::classifier(size_t instance)//return class given nearest neighbor
 {		
 	myQueue.clear(); //using simple vector, will sort after filled... my priority_queue not sorting on push!
 
@@ -33,7 +33,7 @@ int NearestNeighborClassifier::classify(size_t instance)//return class given nea
 
 
 //nearest neighbor overide----------------------
-int NearestNeighborClassifier::classify(DataObject *unknown)//overloaded classify function accepts DataObject pointer
+int NearestNeighborClassifier::classifier(DataObject *unknown)//overloaded classify function accepts DataObject pointer
 {
 	myQueue.clear(); //using simple vector, will sort after filled...  priority_queue not sorting on insert!
 
