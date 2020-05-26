@@ -46,7 +46,7 @@ int main()
 
 	//classifier initialization-----------------------
 	NearestNeighborClassifier classify(smallData);
-	classify.classify(0);//test case 
+	cout << "Nearest class is: " << classify.classify(37);//test case -> manual instance selection
 
 	//large data set----------------------------------
 	cout<< "\n" << "Large Dataset: ";
