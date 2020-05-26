@@ -18,7 +18,7 @@ using std::string;
 using std::ios;
 using std::cout;
 
-class DataConvert
+class DataParser
 {
 public:
 	bool openFile(const char *name);//test for valid file stream

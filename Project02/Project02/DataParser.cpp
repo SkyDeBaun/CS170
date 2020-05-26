@@ -1,8 +1,8 @@
-#include "DataConvert.h"
+#include "DataParser.h"
 
 
 //openFile (tests for valid file)---------------------
-bool DataConvert::openFile(const char *name)
+bool DataParser::openFile(const char *name)
 {
 	bool status;
 
@@ -22,7 +22,7 @@ bool DataConvert::openFile(const char *name)
 
 
 //convertFile (converts to doubles, store in vector)-
-void DataConvert::parseDataFile(const char *name, DataObject *data, bool debug)
+void DataParser::parseDataFile(const char *name, DataObject *data, bool debug)
 {
 	if (openFile(name))//test for valid file -> begin conversion routine if so
 	{
@@ -98,7 +98,7 @@ void DataConvert::parseDataFile(const char *name, DataObject *data, bool debug)
 }//end convertFile---//
 
 //verify proper instance (row) capture from parse operation
-void DataConvert::printTable(DataObject *data)
+void DataParser::printTable(DataObject *data)
 {
 	int size = data->getSize();
 	int cols = data->getCols();
@@ -118,7 +118,7 @@ void DataConvert::printTable(DataObject *data)
 }//end printTable---//
 
 
-void DataConvert::normalize(DataObject *data)
+void DataParser::normalize(DataObject *data)
 {
 	if (!data->getNormalizedStatus())
 	{
