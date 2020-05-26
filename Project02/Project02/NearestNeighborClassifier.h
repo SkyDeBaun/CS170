@@ -28,14 +28,17 @@ class NearestNeighborClassifier
 {
 private:
 	DataObject *data;
+	vector<myPair> myQueue;//cheap fix for priority_queue mis-sorting issue
 	size_t cols; //class ID + features = total # of columns
 	size_t size; //number of elements 
 	size_t rows; // size/cols
 
 public:
 	NearestNeighborClassifier(DataObject *dat);
-	int classify(size_t instance);
+	int classify(size_t instance);//parameter represents instance (row) to find nearest neighbor of -> used for training
+	int classify(DataObject *unknown);//parameter represents unknown class instance
+
 	double getDistance(size_t here, size_t there);//distance between two given instances(rows)
-	
+	double getDistance(DataObject *unknown, size_t there);//distance between two given instances(rows)
 };
 
