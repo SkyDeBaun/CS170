@@ -8,6 +8,31 @@ NearestNeighborClassifier::NearestNeighborClassifier(DataObject *dat) : data(dat
 	rows = size / cols;
 }
 
+int NearestNeighborClassifier::getClass(size_t k)
+{
+	//hardcoded for two class types: 1, 2
+	int one = 0;
+	int two = 0;
+	vector<int> counter;
+
+	//skim off the top of the queue
+	 for (size_t i = 0; i < k; ++i)
+	 {
+		 counter.push_back(myQueue[i].second);
+	 }
+
+	 //count instances
+	 one = std::count(counter.begin(), counter.end(), 1);
+	 two = std::count(counter.begin(), counter.end(), 2);
+
+	 if (one > two)
+	 {
+		 return 1;
+	 }
+	 return 2;		
+}
+
+
 int NearestNeighborClassifier::classifier(size_t instanceNumber, vector<bool> featureKey)//return class given nearest neighbor to instance row
 {		
 	myQueue.clear(); //using simple vector, will sort after filled... my priority_queue not sorting on push!
@@ -28,7 +53,7 @@ int NearestNeighborClassifier::classifier(size_t instanceNumber, vector<bool> fe
 	//sort my queue---------------------------
 	sort(myQueue.begin(), myQueue.end());	
 
-	return myQueue[0].second;
+	return getClass(3);//3 nearest neighbors
 }
 
 

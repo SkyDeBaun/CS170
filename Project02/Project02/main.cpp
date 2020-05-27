@@ -46,6 +46,7 @@ int main()
 	//classifier initialization-----------------------
 	NearestNeighborClassifier classify(smallData);
 	vector<bool> key(11, true);//test key
+	//vector<bool> key{false,false, true, false, true, false, false, false, false, false, false };//test key
 	cout << "Nearest class is: " << classify.classifier(37, key);//test case -> manual instance selection
 
 	//large data set----------------------------------
