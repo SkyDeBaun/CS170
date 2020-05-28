@@ -21,6 +21,7 @@ Valid Text Data Files make the following asumptions:
 #include "NearestNeighborClassifier.h"
 #include "Validator.h"
 #include "Search.h"
+#include "Timer.h"
 
 //using------------------------------------
 using std::vector;
@@ -36,7 +37,7 @@ int main()
 	//convert sample data set to numeric values-------
 
 	//small data set----------------------------------
-	cout << "Small Dataset: ";
+	cout << "Small Dataset: \n";
 	vector <double> dataVector;
 
 	//prepare data object (holds vector and normalization routine)
@@ -45,28 +46,39 @@ int main()
 
 	//data parser-------------------------------------
 	DataParser conversion; //data conversion object parses ascii-text datafile and stores its normalized dataset
-	conversion.parseDataFile("data/cs_170_small80.txt", data, true); //parameters: filename, vector, debug = false
-	conversion.printTable(data); //debug -> verify: normalized
+	conversion.parseDataFile("data/cs_170_small80.txt", data); //parameters: filename, vector, debug = false
+	//conversion.printTable(data); //debug -> verify: normalized
 
 	//search------------------------------------------
-	Search searchFeatures(data);
-	searchFeatures.findBestFeatures();
+	Timer t; //init timer object
+	t.startTimer();
+	Search searchFeatures(data);//initialize search routine
+	searchFeatures.findBestFeatures();//search and report
+	t.stopTimer();
 
+	cout << "\n" << "Time to Search: " << std::fixed << t.getSeconds() << " seconds\n\n";
+	//cleanup-----------------------------------------
+	delete data;
+	dataVector.clear();
 
 
 	//large data set----------------------------------
 	cout<< "\n" << "Large Dataset: ";
-	vector <double> largeDataVector;
 	DataObject *largeData;
-	largeData = new DataObject(largeDataVector);
-	//conversion.parseDataFile("data/cs_170_large80.txt", largeData); //parameters: filename, vector, debug = false
+	largeData = new DataObject(dataVector);
+	conversion.parseDataFile("data/cs_170_large80.txt", largeData); //parameters: filename, vector, debug = false
 
+
+	t.startTimer();
+	Search searchFeatures2(largeData);//initialize search routine
+	searchFeatures2.findBestFeatures();//search and report
+	t.stopTimer();
+
+	cout << "\n" << "Time to Search: " << std::fixed << t.getSeconds() << " seconds\n\n";
 
 
 	//cleanup-----------------------------------------
-	delete data;
 	delete largeData;
-	//delete classifier;
 
 	return 0;
 
