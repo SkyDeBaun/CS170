@@ -100,7 +100,7 @@ public:
 			}
 		}
 		standardDeviation = sqrt(accumulator/ (rows * (columns - 1)));
-		cout << "Standard Deviation: " << standardDeviation << "\n\n"; //debug-> verify expected value
+		cout << "Standard Deviation: " << standardDeviation << "\n"; //debug-> verify expected value
 
 	}//end calcStandardDeviation---//
 
