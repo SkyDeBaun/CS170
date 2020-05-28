@@ -62,7 +62,7 @@ int NearestNeighborClassifier::classifier(size_t instanceNumber, vector<bool> fe
 double NearestNeighborClassifier::getDistance(size_t here, size_t there, vector<bool> featureKey)//distance between two given instances(rows)
 {
 	double accumulator = 0.0;
-	int columns = featureKey.size();
+	int columns = data->getCols();
 	size_t hereRow = here * columns;
 	size_t thereRow = there * columns;
 
