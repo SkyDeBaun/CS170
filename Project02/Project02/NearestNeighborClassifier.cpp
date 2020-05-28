@@ -53,7 +53,7 @@ int NearestNeighborClassifier::classifier(size_t instanceNumber, vector<bool> fe
 	//sort my queue---------------------------
 	sort(myQueue.begin(), myQueue.end());	
 
-	return getClass(3);//3 nearest neighbors
+	return getClass(1);//return nearest neighbor's class (can acommodate variable k parameters)
 }
 
 
@@ -82,4 +82,11 @@ double NearestNeighborClassifier::getDistance(size_t here, size_t there, vector<
 	}
 
 	return accumulator;
+}
+
+
+
+DataObject* NearestNeighborClassifier::getData()
+{
+	return data;
 }
