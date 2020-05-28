@@ -62,13 +62,14 @@ int NearestNeighborClassifier::classifier(size_t instanceNumber, vector<bool> fe
 double NearestNeighborClassifier::getDistance(size_t here, size_t there, vector<bool> featureKey)//distance between two given instances(rows)
 {
 	double accumulator = 0.0;
-	size_t hereRow = here * cols;
-	size_t thereRow = there * cols;
+	int columns = featureKey.size();
+	size_t hereRow = here * columns;
+	size_t thereRow = there * columns;
 
 	//iterate through features (columns)-------
 	if (there < rows) //don't want to try to look at/from a non-existant row..
 	{
-		for (size_t i = 1; i < cols; ++i)//loop for columns (skipping class ID column 0)
+		for (size_t i = 1; i < columns; ++i)//loop for columns (skipping class ID column 0)
 		{
 			if (featureKey[i])//examine only features selected by key
 			{				
