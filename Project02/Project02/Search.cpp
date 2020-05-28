@@ -1,3 +1,5 @@
+//Sky DeBaun CS170 -> Intro to AI -> Project02
+//forwared selection feature search for optimal feature selection
 #include "Search.h"
 
 
@@ -12,26 +14,23 @@ Search::~Search()
 	delete validator;
 }
 
+//find best features------------------------------------------------
+//uses vector<bool> features -> track visited feature states
+//uses vector <feature, accuracy> for sorting on percent accuracy
 void Search::findBestFeatures()
 {
-	//test validator----------------------------
-	//vector<bool> key{ false, false,false, true, false, true, false, false, false, false, false };//test key 91%
-	//cout << "Accuracy: " << validator->validate(key) << "\n";//test
-
 	size_t cols = data->getCols();
 	vector<bool> key_tracker(cols, false);//always skip the first column (class ID)
-	//vector<bool> key_tracker;//hold temp keys
-	bool newFlag = false;
-		
 
-	for (size_t j = 1; j < cols; ++j)
+
+	for (size_t j = 0; j < cols; ++j)//iterate for depth (account for all columns)
 	{
-		for (size_t i = 1; i < cols; ++i)
+		for (size_t i = 1; i < cols; ++i)//iterate for combinations of features
 		{
 			if (key_tracker[i] == false)
 			{
 				key_tracker[i] = true;
-				//cout << "Accuracy: " << validator->validate(key_tracker) << "\n";//test
+				//cout << "Accuracy: " << validator->validate(key_tracker) << "\n";//test debug
 				searching_subFeatures.push_back(make_pair(validator->validate(key_tracker), key_tracker));
 				key_tracker[i] = false;
 			}
@@ -51,16 +50,16 @@ void Search::findBestFeatures()
 
 void Search::printReport()
 {
-	cout << "\n" << "Most Accurate Sub-Features: \n";
+	cout << "\n" << "Most Accurate Sub-Feature Selection: \n\n";
 
-	cout << "Percent:\t" << "Features\n";
+	cout << "Percent:\t" << "Features:\n";
 
 	size_t size = best_subFeatures.size();
 	double accuracy = 0;
 
 	for (size_t i = size -1; i > 0; --i)
 	{
-		cout << best_subFeatures[i].first << ":\t";
+		cout << best_subFeatures[i].first << ":\t\t";
 		printFeatureNumbers(best_subFeatures[i].second);
 		cout << "\n";
 	}
