@@ -35,8 +35,8 @@ public:
 	~Search();
 
 	void findBestFeatures();
-
-
+	void printReport();
+	void printFeatureNumbers(vector<bool> &features);//print columns of selected features
 
 };
 

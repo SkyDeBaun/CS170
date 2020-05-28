@@ -46,5 +46,33 @@ void Search::findBestFeatures()
 
 	//sort at end for best feature combination-------------
 	sort(best_subFeatures.begin(), best_subFeatures.end());//re-sort for best
+	printReport();
+}
 
+void Search::printReport()
+{
+	cout << "\n" << "Most Accurate Sub-Features: \n";
+
+	cout << "Percent:\t" << "Features\n";
+
+	size_t size = best_subFeatures.size();
+	double accuracy = 0;
+
+	for (size_t i = size -1; i > 0; --i)
+	{
+		cout << best_subFeatures[i].first << ":\t";
+		printFeatureNumbers(best_subFeatures[i].second);
+		cout << "\n";
+	}
+}
+
+void Search::printFeatureNumbers(vector<bool> &features)
+{
+	for (size_t i = 1; i < best_subFeatures.size(); ++i)
+	{
+		if (features[i])
+		{
+			cout << i << "\t";
+		}
+	}
 }
