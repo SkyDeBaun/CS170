@@ -46,7 +46,8 @@ int main()
 
 	//data parser-------------------------------------
 	DataParser conversion; //data conversion object parses ascii-text datafile and stores its normalized dataset
-	conversion.parseDataFile("data/cs_170_small80.txt", data); //parameters: filename, vector, debug = false
+	//conversion.parseDataFile("data/cs_170_small80.txt", data); //parameters: filename, vector, debug = false
+	conversion.parseDataFile("data/cs_170_small22.txt", data); //parameters: filename, vector, debug = false
 	//conversion.printTable(data); //debug -> verify: normalized
 
 	//search------------------------------------------
@@ -66,8 +67,8 @@ int main()
 	cout<< "\n" << "Large Dataset: ";
 	DataObject *largeData;
 	largeData = new DataObject(dataVector);
-	conversion.parseDataFile("data/cs_170_large80.txt", largeData); //parameters: filename, vector, debug = false
-
+	//conversion.parseDataFile("data/cs_170_large80.txt", largeData); //parameters: filename, vector, debug = false
+	conversion.parseDataFile("data/cs_170_large22.txt", largeData); //parameters: filename, vector, debug = false
 
 	t.startTimer();
 	Search searchFeatures2(largeData);//initialize search routine
