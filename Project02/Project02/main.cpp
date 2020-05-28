@@ -59,7 +59,7 @@ int main()
 	vector <double> largeDataVector;
 	DataObject *largeData;
 	largeData = new DataObject(largeDataVector);
-	conversion.parseDataFile("data/cs_170_large80.txt", largeData); //parameters: filename, vector, debug = false
+	//conversion.parseDataFile("data/cs_170_large80.txt", largeData); //parameters: filename, vector, debug = false
 
 
 
