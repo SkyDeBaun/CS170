@@ -44,10 +44,16 @@ int main()
 	conversion.printTable(smallData); //debug -> verify: normalized
 
 	//classifier initialization-----------------------
-	NearestNeighborClassifier classify(smallData);
-	vector<bool> key(11, true);//test key
+	//NearestNeighborClassifier classifier(smallData);
+	NearestNeighborClassifier *classifier;
+	classifier = new NearestNeighborClassifier(smallData);
+
+	//vector<bool> key(11, true);//test key
 	//vector<bool> key{false,false, true, false, true, false, false, false, false, false, false };//test key
-	cout << "Nearest class is: " << classify.classifier(37, key);//test case -> manual instance selection
+	//cout << "Nearest class is: " << classifier.classifier(37, key);//test case -> manual instance selection
+
+	Validator validatator(classifier);
+	//validatator.validate();
 
 	//large data set----------------------------------
 	cout<< "\n" << "Large Dataset: ";
@@ -61,6 +67,7 @@ int main()
 	//cleanup-----------------------------------------
 	delete smallData;
 	delete largeData;
+	delete classifier;
 
 	return 0;
 
