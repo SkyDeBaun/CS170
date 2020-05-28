@@ -20,6 +20,7 @@ Valid Text Data Files make the following asumptions:
 #include "DataObject.h"
 #include "NearestNeighborClassifier.h"
 #include "Validator.h"
+#include "Search.h"
 
 //using------------------------------------
 using std::vector;
@@ -38,22 +39,27 @@ int main()
 	//small data set----------------------------------
 	cout << "Small Dataset: ";
 	vector <double> smallDataVector;
-	DataObject *smallData;
-	smallData = new DataObject(smallDataVector);
-	conversion.parseDataFile("data/cs_170_small80.txt", smallData, true); //parameters: filename, vector, debug = false
-	conversion.printTable(smallData); //debug -> verify: normalized
+	DataObject *data;
+	data = new DataObject(smallDataVector);
+
+	conversion.parseDataFile("data/cs_170_small80.txt", data, true); //parameters: filename, vector, debug = false
+	conversion.printTable(data); //debug -> verify: normalized
+
+	Search searchFeatures(data);
+	searchFeatures.findBestFeatures();
+
 
 	//classifier initialization-----------------------
 	//NearestNeighborClassifier classifier(smallData);
-	NearestNeighborClassifier *classifier;
-	classifier = new NearestNeighborClassifier(smallData);
+	//NearestNeighborClassifier *classifier;
+	//classifier = new NearestNeighborClassifier(data);
 
 	//vector<bool> key(11, true);//test key
 	//vector<bool> key{false,false, true, false, true, false, false, false, false, false, false };//test key
-	//cout << "Nearest class is: " << classifier.classifier(37, key);//test case -> manual instance selection
+	//vector<bool> key{ false, false,false, true, false, true, false, false, false, false, false };//test key 91%
 
-	Validator validatator(classifier);
-	//validatator.validate();
+	//Validator validatator(classifier);//test
+	// << "Accuracy: " << validatator.validate(key) << "\n";//test
 
 	//large data set----------------------------------
 	cout<< "\n" << "Large Dataset: ";
@@ -65,9 +71,9 @@ int main()
 
 
 	//cleanup-----------------------------------------
-	delete smallData;
+	delete data;
 	delete largeData;
-	delete classifier;
+	//delete classifier;
 
 	return 0;
 
