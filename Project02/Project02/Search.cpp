@@ -22,6 +22,7 @@ void Search::findBestFeatures()
 	size_t cols = data->getCols();
 	vector<bool> key_tracker(cols, false);//always skip the first column (class ID)
 
+	cout << "Beginning Forward Selection Search\n";
 
 	for (size_t j = 0; j < cols; ++j)//iterate for depth (account for all columns)
 	{
@@ -46,20 +47,21 @@ void Search::findBestFeatures()
 	//sort at end for best feature combination-------------
 	sort(best_subFeatures.begin(), best_subFeatures.end());//re-sort for best
 	printReport();
+	best_subFeatures.clear();//clean up 	
 }
 
 void Search::printReport()
 {
-	cout << "\n" << "Most Accurate Sub-Feature Selection: \n\n";
+	cout << "\n" << "Accuracy of Sub-Feature Selection: \n\n";
 
 	cout << "Percent:\t" << "Features:\n";
 
 	size_t size = best_subFeatures.size();
-	double accuracy = 0;
 
+	//need to limit this for large sets!----------------
 	for (size_t i = size -1; i > 0; --i)
 	{
-		cout << best_subFeatures[i].first << ":\t\t";
+		cout << (int) (best_subFeatures[i].first*100) << "%\t\t";
 		printFeatureNumbers(best_subFeatures[i].second);
 		cout << "\n";
 	}
@@ -71,7 +73,14 @@ void Search::printFeatureNumbers(vector<bool> &features)
 	{
 		if (features[i])
 		{
-			cout << i << "\t";
+			if (i >= 10)
+			{
+				cout << i << " ";
+			}
+			else
+			{
+				cout << i << "  ";
+			}
 		}
 	}
 }

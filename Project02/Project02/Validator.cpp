@@ -2,25 +2,22 @@
 
 
 Validator::Validator(NearestNeighborClassifier *classifier):classifier(classifier)
-{
-	//cout << std::fixed;
-	//std::setprecision(2);
-	//cout << "Accuracy: " << (int)(this->validate() * 100.00) << "%\n";
+{	
 }
 
+//validator returns accuracy of select set of features
+//vector<bool> key tracks selected features
 double Validator::validate(vector<bool> &key)
 {
 	DataObject *data = classifier->getData();
 	int size = data->getSize();
 	size_t cols = data->getCols();
-	size_t rows = size / cols;//this could be returned from classifier instead (but would need function)
+	size_t rows = size / cols;
 	int currentClass;
 	int successes = 0;
 	double accuracy;
-
-	//vector<bool> key(11, true);//test key 67%
-	//vector<bool> key{ false, false,false, true, false, true, false, false, false, false, false };//test key 91%
 	
+
 	//iterate through data----------------------
 	for (size_t i = 0; i < rows ; ++i)
 	{

@@ -125,7 +125,7 @@ void DataParser::normalize(DataObject *data)
 		data->calcAverage();
 		data->calcStandardDeviation();
 
-		cout << "Normalizing the Data Set... \n";
+		cout << "Normalizing the Data Set \n";
 		data->normalize();
 	}	
 
