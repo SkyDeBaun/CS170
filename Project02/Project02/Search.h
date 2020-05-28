@@ -17,8 +17,8 @@ using std::vector;
 using std::pair;
 
 typedef double percentage;
-typedef vector<double> feature_keys;
-typedef pair<feature_keys, percentage> subFeatures;
+typedef vector<bool> feature_keys;
+typedef pair<percentage, feature_keys> subFeatures;
 
 class Search
 {
