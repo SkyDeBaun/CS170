@@ -100,8 +100,8 @@ void DataParser::parseDataFile(const char *name, DataObject *data, bool debug)
 //verify proper instance (row) capture from parse operation
 void DataParser::printTable(DataObject *data)
 {
-	int size = data->getSize();
-	int cols = data->getCols();
+	size_t size = data->getSize();
+	size_t cols = data->getCols();
 
 	for (size_t i = 0; i < size; ++i)
 	{

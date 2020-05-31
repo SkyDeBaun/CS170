@@ -6,6 +6,8 @@ NearestNeighborClassifier::NearestNeighborClassifier(DataObject *dat) : data(dat
 	cols = data->getCols();
 	size = data->getSize();
 	rows = size / cols;
+	myQueue.reserve(rows);//reserve memory in advance (performance enhancement)
+
 }
 
 int NearestNeighborClassifier::getClass(size_t k)
@@ -33,9 +35,9 @@ int NearestNeighborClassifier::getClass(size_t k)
 }
 
 
-int NearestNeighborClassifier::classifier(size_t instanceNumber, vector<bool> featureKey)//return class given nearest neighbor to instance row
+int NearestNeighborClassifier::classifier(size_t instanceNumber, vector<bool> &featureKey)//return class given nearest neighbor to instance row
 {		
-	myQueue.clear(); //using simple vector, will sort after filled... my priority_queue not sorting on push!
+	myQueue.clear(); //clear any prior data
 
 	int classID = -1;
 	double distance = 0.0;
@@ -59,10 +61,10 @@ int NearestNeighborClassifier::classifier(size_t instanceNumber, vector<bool> fe
 
 
 //get distance overide-------------------------
-double NearestNeighborClassifier::getDistance(size_t here, size_t there, vector<bool> featureKey)//distance between two given instances(rows)
+double NearestNeighborClassifier::getDistance(size_t here, size_t there, vector<bool> &featureKey)//distance between two given instances(rows)
 {
 	double accumulator = 0.0;
-	int columns = data->getCols();
+	size_t columns = data->getCols();
 	size_t hereRow = here * columns;
 	size_t thereRow = there * columns;
 

@@ -7,6 +7,12 @@ Search::Search(DataObject *dat):data(dat)
 {
 	classifier = new NearestNeighborClassifier(data);
 	validator = new Validator(classifier);
+
+	//implement performance enhancement by reserving memory for vectors in advance
+	int cols = data->getCols();
+	int size = data->getSize();
+	best_subFeatures.reserve(cols*cols);//shouldn't need to be larger than the largest subset of features
+	searching_subFeatures.reserve(size);
 }
 Search::~Search()
 {
@@ -21,7 +27,7 @@ void Search::findBestFeatures()
 {
 	size_t cols = data->getCols();
 	vector<bool> key_tracker(cols, false);//always skip the first column (class ID)
-
+	
 	cout << "Beginning Forward Selection Search\n";
 
 	for (size_t j = 0; j < cols; ++j)//iterate for depth (account for all columns)

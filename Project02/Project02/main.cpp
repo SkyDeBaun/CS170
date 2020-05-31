@@ -39,6 +39,7 @@ int main()
 	//small data set----------------------------------
 	cout << "Small Dataset: \n";
 	vector <double> dataVector;
+	dataVector.reserve(11000);//enough space for our largest data set
 
 	//prepare data object (holds vector and normalization routine)
 	DataObject *data;
@@ -46,8 +47,10 @@ int main()
 
 	//data parser-------------------------------------
 	DataParser conversion; //data conversion object parses ascii-text datafile and stores its normalized dataset
-	//conversion.parseDataFile("data/cs_170_small80.txt", data); //parameters: filename, vector, debug = false
-	conversion.parseDataFile("data/cs_170_small22.txt", data); //parameters: filename, vector, debug = false
+	
+	
+	conversion.parseDataFile("data/cs_170_small80.txt", data); //parameters: filename, vector, debug = false
+	//conversion.parseDataFile("data/cs_170_small22.txt", data); //parameters: filename, vector, debug = false
 	//conversion.printTable(data); //debug -> verify: normalized
 
 	//search------------------------------------------
@@ -61,14 +64,14 @@ int main()
 	//cleanup-----------------------------------------
 	delete data;
 	dataVector.clear();
-
+	dataVector.reserve(40000);//enough space for our largest data set
 
 	//large data set----------------------------------
 	cout<< "\n" << "Large Dataset: ";
 	DataObject *largeData;
 	largeData = new DataObject(dataVector);
-	//conversion.parseDataFile("data/cs_170_large80.txt", largeData); //parameters: filename, vector, debug = false
-	conversion.parseDataFile("data/cs_170_large22.txt", largeData); //parameters: filename, vector, debug = false
+	conversion.parseDataFile("data/cs_170_large80.txt", largeData); //parameters: filename, vector, debug = false
+	//conversion.parseDataFile("data/cs_170_large22.txt", largeData); //parameters: filename, vector, debug = false
 
 	t.startTimer();
 	Search searchFeatures2(largeData);//initialize search routine
